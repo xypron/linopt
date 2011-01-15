@@ -50,9 +50,11 @@ public class Problem {
     /**
      * Set problem name
      * @param name problem name
+     * @return problem
      */
-    public void setName(String name) {
+    public Problem setName(String name) {
         this.name = name;
+        return this;
     }
 
     /**
