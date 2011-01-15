@@ -1,6 +1,5 @@
 package de.xypron.linopt.examples;
 
-
 import de.xypron.linopt.Solver;
 import de.xypron.linopt.Problem;
 import de.xypron.linopt.SolverGlpk;
@@ -21,7 +20,6 @@ import de.xypron.linopt.SolverGlpk;
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 /**
  * This program solves a small cutting stock problem.
  * For solving usual size problems column generation should be used.
