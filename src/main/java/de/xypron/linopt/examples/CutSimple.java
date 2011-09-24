@@ -1,9 +1,3 @@
-package de.xypron.linopt.examples;
-
-import de.xypron.linopt.Solver;
-import de.xypron.linopt.Problem;
-import de.xypron.linopt.SolverGlpk;
-
 /*
  *  Copyright (C) 2010 Heinrich Schuchardt
  *
@@ -25,6 +19,13 @@ import de.xypron.linopt.SolverGlpk;
  * For solving usual size problems column generation should be used.
  * @author Heinrich Schuchardt
  */
+
+package de.xypron.linopt.examples;
+
+import de.xypron.linopt.Solver;
+import de.xypron.linopt.Problem;
+import de.xypron.linopt.SolverGlpk;
+
 public class CutSimple {
 
     public static void main(String[] args) {
