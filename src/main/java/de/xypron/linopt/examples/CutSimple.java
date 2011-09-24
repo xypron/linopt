@@ -25,6 +25,10 @@ import de.xypron.linopt.Solver;
 import de.xypron.linopt.Problem;
 import de.xypron.linopt.SolverGlpk;
 
+/**
+ * A small cutting stock problem is solved.
+ * @author Heinrich Schuchardt
+ */
 public class CutSimple {
 
     static final String COLUMN_USE = "u";
