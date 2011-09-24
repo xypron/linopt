@@ -72,9 +72,9 @@ public class CutSimple {
         for (int i = 0; i < stock.length; i++) {
             // Minimize waste :
             //     stockLength(i) * u(i) - sum( productLength(j) * x(i,j) )
-            p.getObjective().add(stock[i], COLUMN_USE, i);
+            p.objective().add(stock[i], COLUMN_USE, i);
             for (int j = 0; j < product.length; j++) {
-                p.getObjective().add(-product[j], COLUMN_CUT, i, j);
+                p.objective().add(-product[j], COLUMN_CUT, i, j);
             }
         }
         // define rows
@@ -118,7 +118,7 @@ public class CutSimple {
                     System.out.println();
                 }
             }
-            System.out.println("Waste = " + p.getObjective().getValue());
+            System.out.println("Waste = " + p.objective().getValue());
         }
     }
 }

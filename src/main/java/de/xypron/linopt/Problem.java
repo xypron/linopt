@@ -142,6 +142,7 @@ public class Problem {
      * Get objective function.
      * @return objective function
      */
+    @Deprecated
     public Objective getObjective() {
         return objectiveFunction;
     }
@@ -173,6 +174,14 @@ public class Problem {
             ret = new Column(key);
         }
         return ret;
+    }
+    
+    /**
+     * Gets objective function.
+     * @return 
+     */
+    public Objective objective() {
+        return objectiveFunction;
     }
 
     /**
