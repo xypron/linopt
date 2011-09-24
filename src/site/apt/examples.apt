@@ -9,8 +9,9 @@
 
 Examples
 
- Class de.xypron.linopt.examples.CutSimple.java solves a small cutting stock
- problem.
+ Class
+ {{{./xref/de/xypron/linopt/examples/CutSimple.html}de.xypron.linopt.examples.CutSimple.java}}
+ solves a small cutting stock problem.
 
  First a problem object is created:
  
