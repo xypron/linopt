@@ -29,7 +29,7 @@ public class Problem {
     /**
      * Problem name.
      */
-    private String name;
+    private String name = null;
     /**
      * Columns.
      */
@@ -84,6 +84,22 @@ public class Problem {
         BINARY
     }
 
+    /**
+     * Creates problem.
+     */
+    public Problem() {
+        
+    }
+    
+    /**
+     * Creates problem.
+     * @param name name
+     */
+    public Problem(final String name) {
+        this();
+        this.name = name;
+    }
+    
     /**
      * Get problem name.
      * @return problem name

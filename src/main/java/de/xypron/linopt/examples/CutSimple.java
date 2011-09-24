@@ -54,7 +54,7 @@ public class CutSimple {
         long[] demand = {20, 10, 3, 7, 2, 1};
 
         // define problem
-        p = new Problem().setName(PROBLEM);
+        p = new Problem(PROBLEM);
 
         // define columns
         for (int i = 0; i < stock.length; i++) {
