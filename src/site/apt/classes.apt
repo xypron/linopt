@@ -1,0 +1,23 @@
+ -----
+ Classes
+ -----
+  Schuchardt
+ <xypron.glpk@gmx.de>
+ -----
+ September 2011
+ -----
+
+Classes 
+ 
+ Interface <<Solver>> defines a unique interface for all solvers. The only
+ method is 
+
+---
+ public boolean solve(Problem p);
+---
+
+ <<SolverGlpk>> is an implementation of this interface to use the Gnu Linear
+ Optimization Kit.
+ 
+ <<Problem>> provides the methods necessary to define a linear optimization
+ program.
