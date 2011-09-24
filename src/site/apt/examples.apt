@@ -30,10 +30,10 @@ for (int i = 0; i < stock.length; i++) {
     // u(i) : stock element i is used
     p.column(COLUMN_USE, i).type(Problem.ColumnType.BINARY);
     for (int j = 0; j < product.length; j++) {
-// x(i,j) : x pieces of product j are cut from stock i
-p.column(COLUMN_CUT, i, j).
-type(Problem.ColumnType.INTEGER).
-bounds(0., null);
+    // x(i,j) : x pieces of product j are cut from stock i
+    p.column(COLUMN_CUT, i, j).
+            type(Problem.ColumnType.INTEGER).
+            bounds(0., null);
     }
 }
 ---
@@ -51,7 +51,7 @@ for (int i = 0; i < stock.length; i++) {
     //     stockLength(i) * u(i) - sum( productLength(j) * x(i,j) )
     p.getObjective().add(stock[i], COLUMN_USE, i);
     for (int j = 0; j < product.length; j++) {
-p.getObjective().add(-product[j], COLUMN_CUT, i, j);
+        p.getObjective().add(-product[j], COLUMN_CUT, i, j);
     }
 }
 ---
