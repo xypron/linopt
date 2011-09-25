@@ -35,3 +35,12 @@ About
         </dependency>
     </dependencies>
 ---
+
+ When testing with Maven it may be necessary to indicate the installation path
+ of the GLPK for Java shared library (.so or .dll).
+
+---
+mvn clean install -DargLine='-Djava.library.path=/usr/local/lib/jni:/usr/lib/jni'
+---
+
+
