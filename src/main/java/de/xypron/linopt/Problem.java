@@ -1,91 +1,46 @@
-/*
- *  Copyright (C) 2010 Heinrich Schuchardt
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package de.xypron.linopt;
+
 
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
- * Linear programming problem.
+ *
  * @author Heinrich Schuchardt
  */
 public class Problem {
 
-    /**
-     * Problem name.
-     */
     private String name;
-    /**
-     * Columns.
-     */
     private TreeMap<String, Column> columns =
             new TreeMap<String, Column>();
-    /**
-     * Objective function.
-     */
     private Objective objectiveFunction = null;
-    /**
-     * Matrix.
-     */
     private TreeMap<Row, TreeMap<Column, Double>> matrix =
             new TreeMap<Row, TreeMap<Column, Double>>();
-    /**
-     * Rows
-     */
     private TreeMap<String, Row> rows =
             new TreeMap<String, Row>();
 
     /**
-     * Optimization direction.
+     * Optimization direction
      */
     public enum Direction {
 
-        /**
-         * Minimize.
-         */
         MINIMIZE,
-        /**
-         * Maximize.
-         */
         MAXIMIZE
     }
 
     /**
-     * Column type.
+     * Column type
      */
     public enum ColumnType {
 
-        /**
-         * Float.
-         */
         FLOAT,
-        /**
-         * Integer.
-         */
         INTEGER,
-        /**
-         * Binary.
-         */
         BINARY
     }
 
     /**
-     * Get problem name.
+     * Get problem name
      * @return problem name
      */
     public String getName() {
@@ -93,17 +48,17 @@ public class Problem {
     }
 
     /**
-     * Set problem name.
+     * Set problem name
      * @param name problem name
      * @return problem
      */
-    public Problem setName(final String name) {
+    public Problem setName(String name) {
         this.name = name;
         return this;
     }
 
     /**
-     * Get columns.
+     * Get columns
      * @return columns
      */
     public TreeSet<Column> getColumns() {
@@ -115,7 +70,7 @@ public class Problem {
     }
 
     /**
-     * Get matrix.
+     * Get matrix
      * @return matrix
      */
     public TreeMap<Row, TreeMap<Column, Double>> getMatrix() {
@@ -123,7 +78,7 @@ public class Problem {
     }
 
     /**
-     * Get objective function.
+     * Get objective function
      * @return objective function
      */
     public Objective getObjective() {
@@ -131,7 +86,7 @@ public class Problem {
     }
 
     /**
-     * Get rows (including objective).
+     * Get rows (including objective)
      * @return rows
      */
     public TreeSet<Row> getRows() {
@@ -143,12 +98,12 @@ public class Problem {
     }
 
     /**
-     * Get column identified by name and indices.
+     * Get column identified by name and indices
      * @param name column name
      * @param index indices
-     * @return column
+     * @return
      */
-    public Column column(final String name, final Object... index) {
+    public Column column(String name, Object... index) {
         Column ret;
         String key = key(name, index);
         if (columns.containsKey(key)) {
@@ -160,12 +115,12 @@ public class Problem {
     }
 
     /**
-     * Create objective function.
+     * Create objective function
      * @param name name
      * @param direction optimization direction
-     * @return objective
+     * @return
      */
-    public Objective objective(final String name, final Direction direction) {
+    public Objective objective(String name, Direction direction) {
         if (objectiveFunction == null) {
             objectiveFunction = new Objective(name, direction);
         } else {
@@ -175,12 +130,12 @@ public class Problem {
     }
 
     /**
-     * Get row identified by name and indices.
+     * Get row identified by name and indices
      * @param name
      * @param index
-     * @return row
+     * @return
      */
-    public Row row(final String name, final Object... index) {
+    public Row row(String name, Object... index) {
         Row ret;
         String key = key(name, index);
         if (rows.containsKey(key)) {
@@ -192,12 +147,12 @@ public class Problem {
     }
 
     /**
-     * Create key for column or row.
+     * Create key for column or row
      * @param name
      * @param index
-     * @return key
+     * @return
      */
-    private String key(final String name, final Object... index) {
+    private String key(String name, Object... index) {
         String sep = "(";
         String key = name;
         if (index.length > 0) {
@@ -212,7 +167,7 @@ public class Problem {
     }
 
     /**
-     * Column.
+     * Column
      */
     public class Column implements Comparable<Column> {
 
@@ -237,7 +192,7 @@ public class Problem {
         }
 
         /**
-         * Get column name.
+         * Get column name
          * @return name
          */
         public String getKey() {
@@ -245,7 +200,7 @@ public class Problem {
         }
 
         /**
-         * Get column type.
+         * Get column type
          * @return type
          */
         public ColumnType getType() {
@@ -253,7 +208,7 @@ public class Problem {
         }
 
         /**
-         * Get dual value.
+         * Get dual value
          * @return dual
          */
         public double getDual() {
@@ -261,31 +216,31 @@ public class Problem {
         }
 
         /**
-         * Set dual value.
+         * Set dual value
          * @param dual
          */
-        public void setDual(final double dual) {
+        public void setDual(double dual) {
             this.dual = dual;
         }
 
         /**
-         * Get lower bound.
-         * @return lower bound.
+         * Get lower bound
+         * @return lower bound
          */
         public Double getLowerBound() {
             return lowerBound;
         }
 
         /**
-         * Set lower bound.
+         * Set lower bound
          * @param lowerBound lower bound
          */
-        public void setLowerBound(final Double lowerBound) {
+        public void setLowerBound(Double lowerBound) {
             this.lowerBound = lowerBound;
         }
 
         /**
-         * Get column number.
+         * Get column number
          * @return column number
          */
         public int getColumnNumber() {
@@ -293,10 +248,10 @@ public class Problem {
         }
 
         /**
-         * Set column number.
+         * Set column number
          * @param columnNumber column number
          */
-        public void setColumnNumber(final int columnNumber) {
+        public void setColumnNumber(int columnNumber) {
             this.columnNumber = columnNumber;
         }
 
@@ -309,15 +264,15 @@ public class Problem {
         }
 
         /**
-         * Set upper bound.
+         * Set upper bound
          * @param upperBound upper bound
          */
-        public void setUpperBound(final Double upperBound) {
+        public void setUpperBound(Double upperBound) {
             this.upperBound = upperBound;
         }
 
         /**
-         * Get value.
+         * Get value
          * @return value
          */
         public double getValue() {
@@ -325,27 +280,21 @@ public class Problem {
         }
 
         /**
-         * Set value.
+         * Set value
          * @param value value
          */
         public void setValue(double value) {
             this.value = value;
         }
 
-        /**
-         * Sets bounds of column.
-         * @param lowerBound lower bound
-         * @param upperBound upper bound
-         * @return this column
-         */
-        public Column bounds(final Double lowerBound, final Double upperBound) {
+        public Column bounds(Double lowerBound, Double upperBound) {
             this.lowerBound = lowerBound;
             this.upperBound = upperBound;
             return this;
         }
 
         /**
-         * Set column type.
+         * Set column type
          * @param type column type
          * @return column
          */
@@ -355,24 +304,23 @@ public class Problem {
         }
 
         /**
-         * Set coefficient.
+         * Set coefficient
          * @param value coefficient
          * @param rowName row name
          * @param index row indices
          * @return
          */
-        public Column add(final double value, final String rowName,
-                final Object... index) {
+        public Column add(double value, String rowName, Object... index) {
             return add(value, row(rowName, index));
         }
 
         /**
-         * Set coefficient.
+         * Set coefficient
          * @param value value
          * @param row row
          * @return
          */
-        public Column add(final double value, final Row row) {
+        public Column add(double value, Row row) {
             matrix.get(row).put(this, value);
             return this;
         }
@@ -383,31 +331,28 @@ public class Problem {
         }
 
         @Override
-        public int compareTo(final Column o) {
+        public int compareTo(Column o) {
             return key.compareTo(o.key);
         }
     }
 
-    /**
-     * Objective.
-     */
     public class Objective
             extends Row {
 
         private Direction direction;
 
         /**
-         * Create objective.
+         * Create objective
          * @param key name
          * @param direction optimization direction
          */
-        Objective(final String key, final Direction direction) {
+        Objective(String key, Direction direction) {
             super(key);
             this.direction = direction;
         }
 
         /**
-         * Get optimization direction.
+         * Get optimization direction
          * @return optimization direction
          */
         public Direction getDirection() {
@@ -418,13 +363,14 @@ public class Problem {
          * Set optimization direction
          * @param direction optimization direction
          */
-        public void setDirection(final Direction direction) {
+        public void setDirection(Direction direction) {
             this.direction = direction;
         }
+
     }
 
     /**
-     * Row.
+     * Row
      */
     public class Row implements Comparable<Row> {
 
@@ -435,7 +381,7 @@ public class Problem {
         private double value;
         private double dual;
 
-        private Row(final String key) {
+        private Row(String key) {
             this.key = key;
             initialize();
         }
@@ -449,7 +395,7 @@ public class Problem {
         }
 
         /**
-         * Get row name.
+         * Get row name
          * @return name
          */
         public String getKey() {
@@ -457,7 +403,7 @@ public class Problem {
         }
 
         /**
-         * Get row dual value.
+         * Get row dual value
          * @return dual
          */
         public double getDual() {
@@ -465,7 +411,7 @@ public class Problem {
         }
 
         /**
-         * Set row dual value.
+         * Set row dual value
          * @param dual dual
          */
         public void setDual(double dual) {
@@ -473,7 +419,7 @@ public class Problem {
         }
 
         /**
-         * Get lower bound.
+         * Get lower bound
          * @return lower bound
          */
         public Double getLowerBound() {
@@ -481,15 +427,15 @@ public class Problem {
         }
 
         /**
-         * Set lower bound.
+         * Set lower bound
          * @param lowerBound lower bound
          */
-        public void setLowerBound(final Double lowerBound) {
+        public void setLowerBound(Double lowerBound) {
             this.lowerBound = lowerBound;
         }
 
         /**
-         * Get row number.
+         * Get row number
          * @return row number
          */
         public int getRowNumber() {
@@ -497,15 +443,15 @@ public class Problem {
         }
 
         /**
-         * Set row number.
+         * Set row number
          * @param rowNumber row number
          */
-        public void setRowNumber(final int rowNumber) {
+        public void setRowNumber(int rowNumber) {
             this.rowNumber = rowNumber;
         }
 
         /**
-         * Get upper bound.
+         * Get upper bound
          * @return upper bound
          */
         public Double getUpperBound() {
@@ -513,15 +459,15 @@ public class Problem {
         }
 
         /**
-         * Set upper bound.
+         * Set upper bound
          * @param upperBound upper bound
          */
-        public void setUpperBound(final Double upperBound) {
+        public void setUpperBound(Double upperBound) {
             this.upperBound = upperBound;
         }
 
         /**
-         * Get value.
+         * Get value
          * @return value
          */
         public double getValue() {
@@ -532,40 +478,39 @@ public class Problem {
          * Set value
          * @param value value
          */
-        public void setValue(final double value) {
+        public void setValue(double value) {
             this.value = value;
         }
 
         /**
-         * Set coefficient.
+         * Set coefficient
          * @param value coefficient
          * @param columnName column name
          * @param index column indices
          * @return this row
          */
-        public Row add(final double value, final String columnName,
-                final Object... index) {
+        public Row add(double value, String columnName, Object... index) {
             return add(value, column(columnName, index));
         }
 
         /**
-         * Set coefficient.
+         * Set coefficient
          * @param value value
          * @param column column
          * @return this row
          */
-        public Row add(final double value, final Column column) {
+        public Row add(double value, Column column) {
             matrix.get(this).put(column, value);
             return this;
         }
 
         /**
-         * Set bounds.
+         * Set bounds
          * @param lowerBound lower bound
          * @param upperBound upper bound
          * @return this row
          */
-        public Row bounds(final Double lowerBound, final Double upperBound) {
+        public Row bounds(Double lowerBound, Double upperBound) {
             this.lowerBound = lowerBound;
             this.upperBound = upperBound;
             return this;

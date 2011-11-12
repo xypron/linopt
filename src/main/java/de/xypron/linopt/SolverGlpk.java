@@ -1,47 +1,43 @@
+package de.xypron.linopt;
+
 /*
  *  Copyright (C) 2010 Heinrich Schuchardt
- *
+ * 
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
- *
+ * 
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
- *
+ * 
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.xypron.linopt;
 
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import org.gnu.glpk.*;
 
 /**
- * Wrapper for GLPK for Java.
+ *
  * @author Heinrich Schuchardt
  */
 public class SolverGlpk implements Solver {
 
     @Override
-    public final boolean solve(final Problem p) {
+    public boolean solve(Problem p) {
         try {
-            return solveInternal(p);
+            return solve_(p);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
         }
     }
 
-    /**
-     * Solve the linear problem.
-     * @param p problem.
-     * @return success = true
-     */
-    private boolean solveInternal(final Problem p) {
+    private boolean solve_(Problem p) {
         boolean ret = false;
         int i, j, n;
         glp_prob lp;
@@ -74,8 +70,6 @@ public class SolverGlpk implements Solver {
                 case INTEGER:
                     GLPK.glp_set_col_kind(lp, i, GLPKConstants.GLP_IV);
                     break;
-                default:
-                    throw new RuntimeException("Illegal column type");
             }
             lb = c.getLowerBound();
             ub = c.getUpperBound();
@@ -135,8 +129,7 @@ public class SolverGlpk implements Solver {
 
         // create matrix
         i = 1;
-        for (Entry<Problem.Row, TreeMap<Problem.Column, Double>> e :
-                p.getMatrix().
+        for (Entry<Problem.Row, TreeMap<Problem.Column, Double>> e : p.getMatrix().
                 entrySet()) {
             if (e.getKey() == obj) {
                 continue;
@@ -149,23 +142,19 @@ public class SolverGlpk implements Solver {
         row = GLPK.new_intArray(i);
         val = GLPK.new_doubleArray(i);
         i = 0;
-        for (Entry<Problem.Row, TreeMap<Problem.Column, Double>> e :
-                p.getMatrix().
+        for (Entry<Problem.Row, TreeMap<Problem.Column, Double>> e : p.getMatrix().
                 entrySet()) {
             Problem.Row r = e.getKey();
 
             if (r == obj) {
-                for (Entry<Problem.Column, Double> c :
-                        e.getValue().entrySet()) {
-                    GLPK.glp_set_obj_coef(lp, c.getKey().getColumnNumber(),
-                            c.getValue());
+                for (Entry<Problem.Column, Double> c : e.getValue().entrySet()) {
+                    GLPK.glp_set_obj_coef(lp, c.getKey().getColumnNumber(), c.
+                            getValue());
                 }
             } else {
                 j = r.getRowNumber();
-                for (Entry<Problem.Column, Double> c :
-                        e.getValue().entrySet()) {
-                    GLPK.intArray_setitem(col, ++i,
-                            c.getKey().getColumnNumber());
+                for (Entry<Problem.Column, Double> c : e.getValue().entrySet()) {
+                    GLPK.intArray_setitem(col, ++i, c.getKey().getColumnNumber());
                     GLPK.intArray_setitem(row, i, j);
                     GLPK.doubleArray_setitem(val, i, c.getValue());
                 }

@@ -1,3 +1,9 @@
+package de.xypron.linopt.examples;
+
+import de.xypron.linopt.Solver;
+import de.xypron.linopt.Problem;
+import de.xypron.linopt.SolverGlpk;
+
 /*
  *  Copyright (C) 2010 Heinrich Schuchardt
  *
@@ -19,26 +25,15 @@
  * For solving usual size problems column generation should be used.
  * @author Heinrich Schuchardt
  */
-package de.xypron.linopt.examples;
-
-import de.xypron.linopt.Solver;
-import de.xypron.linopt.Problem;
-import de.xypron.linopt.SolverGlpk;
-
 public class CutSimple {
 
-    static final String COLUMN_USE = "u";
-    static final String COLUMN_CUT = "x";
-    static final String OBJECTIVE = "waste";
-    static final String PROBLEM = "CuttingStock";
-    static final String ROW_DEMAND = "demand";
-    static final String ROW_STOCK = "stock";
-
-    private CutSimple() {
-        
-    }
-    
     public static void main(String[] args) {
+        final String COLUMN_USE = "u";
+        final String COLUMN_CUT = "x";
+        final String OBJECTIVE = "waste";
+        final String PROBLEM = "CuttingStock";
+        final String ROW_DEMAND = "demand";
+        final String ROW_STOCK = "stock";
 
         Solver s = new SolverGlpk();
         Problem p;
@@ -91,30 +86,28 @@ public class CutSimple {
         }
 
         // solve
-        if (!s.solve(p)) {
-            System.out.println("No solution found.");
-        } else {
-            // output solution
-            System.out.println("Production plan");
-            for (int i = 0; i < stock.length; i++) {
-                boolean flag = false;
-                for (int j = 0; j < product.length; j++) {
-                    double v = p.column(COLUMN_CUT, i, j).getValue();
-                    if (v > 0) {
-                        if (flag) {
-                            System.out.print(" + ");
-                        } else {
-                            System.out.print(stock[i] + " >= ");
-                        }
-                        System.out.print(v + " * " + product[j]);
-                        flag = true;
+        s.solve(p);
+
+        // output solution
+        System.out.println("Production plan");
+        for (int i = 0; i < stock.length; i++) {
+            boolean flag = false;
+            for (int j = 0; j < product.length; j++) {
+                double v = p.column(COLUMN_CUT, i, j).getValue();
+                if (v > 0) {
+                    if (flag) {
+                        System.out.print(" + ");
+                    } else {
+                        System.out.print(stock[i] + " >= ");
                     }
-                }
-                if (flag) {
-                    System.out.println();
+                    System.out.print(v + " * " + product[j]);
+                    flag = true;
                 }
             }
-            System.out.println("Waste = " + p.getObjective().getValue());
+            if (flag) {
+                System.out.println();
+            }
         }
+        System.out.println("Waste = " + p.getObjective().getValue());
     }
 }
