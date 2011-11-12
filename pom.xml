@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.xypron.linopt</groupId>
     <artifactId>linopt</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <name>Linear Optimization</name>
+    <version>1.1-SNAPSHOT</version>
+    <name>Linear Optimization Wrapper for Java</name>
     <description>
         Wrapper for linear optimization solver
     </description>
@@ -21,6 +21,7 @@
     </repositories>
     <scm>
         <connection>scm:svn:http://www.xypron.de/svn/linopt/</connection>
+        <url>http://www.xypron.de/viewvc/svn/linopt/</url>
     </scm>
     <properties>
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
@@ -61,9 +62,9 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.1</version>
+                <version>1.2.1</version>
                 <configuration>
-                    <mainClass>de.xypron.linopt.exampels.CutSimple</mainClass>
+                    <mainClass>de.xypron.linopt.examples.CutSimple</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -79,7 +80,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
+                <version>2.3.2</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -97,7 +98,7 @@
                 <inherited>true</inherited>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
+                <version>2.8</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -120,18 +121,57 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <!-- for Maven 2
+                <version>2.2</version>
+                -->
+                <!-- for Maven 3 -->
+                <version>3.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <!-- for Maven 3 -->
+                <version>2.4</version>
+            </plugin>
         </plugins>
     </build>
     <packaging>jar</packaging>
     <reporting>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8</version>
+                <configuration>
+                    <docfilessubdirs>true</docfilessubdirs>
+                    <bottom>&lt;p&gt;This documentation is part of project &lt;a target="_top" href="${project.url}"&gt;${project.name}&lt;/a&gt;.&lt;/p&gt;&lt;table BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY=""&gt;&lt;tr&gt;&lt;td&gt;Group-ID&lt;/td&gt;&lt;td&gt;${project.groupId}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Artifact-ID&lt;/td&gt;&lt;td&gt;${project.artifactId}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Version&lt;/td&gt;&lt;td&gt;${project.version}&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</bottom>
+                </configuration>
+            </plugin>            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.7</version>
+                <!--
+                <configuration>
+                    <configLocation>http://www.xypron.de/svn/checkstyle/xypron.xml</configLocation>
+                </configuration>
+                -->
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>clirr-maven-plugin</artifactId>
+                <version>2.3</version>
+            </plugin>
+            <plugin>
                 <!--
                 mvn jxr:jxr
                 generate cross reference -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.3</version>
             </plugin>
             <plugin>
                 <!--
@@ -143,9 +183,47 @@
                 -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.5</version>
                 <configuration>
                     <targetJdk>1.6</targetJdk>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+                <version>2.0-beta-2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <tagListOptions>
+                        <tagClasses>
+                            <tagClass>
+                                <displayName>Todo Tags</displayName>
+                                <tags>
+                                    <tag>
+                                        <matchString>TODO</matchString>
+                                        <matchType>ignoreCase</matchType>
+                                    </tag>
+                                    <tag>
+                                        <matchString>@todo</matchString>
+                                        <matchType>exact</matchType>
+                                    </tag>
+                                </tags>
+                            </tagClass>
+                            <tagClass>
+                                <displayName>Fix Tags</displayName>
+                                <tags>
+                                    <tag>
+                                        <matchString>FIXME</matchString>
+                                        <matchType>exact</matchType>
+                                    </tag>
+                                </tags>
+                            </tagClass>
+                        </tagClasses>
+                    </tagListOptions>
                 </configuration>
             </plugin>
         </plugins>
@@ -154,7 +232,7 @@
         <dependency>
             <groupId>org.gnu.glpk</groupId>
             <artifactId>glpk-java</artifactId>
-            <version>1.0.16</version>
+            <version>1.0.18</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
