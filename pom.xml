@@ -37,14 +37,22 @@
     </licenses>
     <distributionManagement>
         <repository>
+            <uniqueVersion>false</uniqueVersion>
             <id>file-repository</id>
             <name>Local Repository</name>
-            <url>file:///home/xypron/m2repo/repository</url>
+            <url>file:///home/xypron/rsync/m2repo/repository</url>
         </repository>
+        <snapshotRepository>
+            <uniqueVersion>true</uniqueVersion>
+            <id>file-snapshotRepository></id>
+            <name>Local Snapshot Repository</name>
+            <url>file:///home/xypron/rsync/m2repo/snapshotRepository</url>
+            <layout>default</layout>
+        </snapshotRepository>
         <site>
             <id>local-site</id>
             <name>Local deployed site</name>
-            <url>file://${user.dir}/target/deploy/site</url>
+            <url>file:///home/xypron/projects/linopt</url>
         </site>
     </distributionManagement>
     <developers>
@@ -232,12 +240,12 @@
         <dependency>
             <groupId>org.gnu.glpk</groupId>
             <artifactId>glpk-java</artifactId>
-            <version>1.0.18</version>
+            <version>1.0.19</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>4.10</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
