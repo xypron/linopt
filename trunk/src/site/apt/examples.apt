@@ -1,0 +1,106 @@
+ -----
+ Examples
+ -----
+  Schuchardt
+ <xypron.glpk@gmx.de>
+ -----
+ September 2011
+ -----
+
+Examples
+
+ Class
+ {{{./xref/de/xypron/linopt/examples/CutSimple.html}de.xypron.linopt.examples.CutSimple.java}}
+ solves a small cutting stock problem.
+
+ First a problem object is created:
+ 
+---
+final static String PROBLEM = "CuttingStock";
+p = new Problem().setName(PROBLEM);
+---
+
+ The variables of the linear program have to be defined as columns. Columns are
+ identified by a name and indices. 
+ 
+---
+final static String COLUMN_USE = "u";
+final static String COLUMN_CUT = "x";
+// define columns
+for (int i = 0; i < stock.length; i++) {
+    // u(i) : stock element i is used
+    p.column(COLUMN_USE, i).type(Problem.ColumnType.BINARY);
+    for (int j = 0; j < product.length; j++) {
+    // x(i,j) : x pieces of product j are cut from stock i
+    p.column(COLUMN_CUT, i, j).
+            type(Problem.ColumnType.INTEGER).
+            bounds(0., null);
+    }
+}
+---
+
+ Given the columns the objective can be defined. Method add of the objective
+ is used to add the coefficients. The relevant columns are identified by a name
+ and indices. 
+ 
+---
+final static String OBJECTIVE = "waste";
+long[] product = {6, 10, 16, 25, 40, 63};
+p.objective(OBJECTIVE, Problem.Direction.MINIMIZE);
+for (int i = 0; i < stock.length; i++) {
+    // Minimize waste :
+    //     stockLength(i) * u(i) - sum( productLength(j) * x(i,j) )
+    p.getObjective().add(stock[i], COLUMN_USE, i);
+    for (int j = 0; j < product.length; j++) {
+        p.getObjective().add(-product[j], COLUMN_CUT, i, j);
+    }
+}
+---
+
+ The rows are added (and retrieved) via the row method. A row is identified
+ by a string and indices.
+
+ The non zero elements of the matrix are added using method add of the rows.
+  
+---
+final static String ROW_DEMAND = "demand";
+final static String ROW_STOCK = "stock";
+for (int i = 0; i < stock.length; i++) {
+    // stockLength(i) * u(i) >= sum( productLength[j] * x(i,j)
+    p.row(ROW_STOCK, i).bounds(0., null).
+    add(stock[i], COLUMN_USE, i);
+    for (int j = 0; j < product.length; j++) {
+        p.row(ROW_STOCK, i).add(-product[j], COLUMN_CUT, i, j);
+    }
+}
+for (int j = 0; j < product.length; j++) {
+    // demand(j) = sum( x(i,j) )
+    p.row(ROW_DEMAND, j).bounds((double) demand[j], (double) demand[j]);
+    for (int i = 0; i < stock.length; i++) {
+        p.row(ROW_DEMAND, j).add(1., COLUMN_CUT, i, j);
+    }
+}
+---
+
+ The problem now can be passed to the solver for solution.
+ 
+---
+Solver s = new SolverGlpk();
+if (!s.solve(p)) {
+    System.out.println("No solution found.");
+} else {
+    // output solution
+---
+
+ The values of the columns can be easily retrieved via method getValue of the
+ columns of the problem.
+ 
+---
+double v = p.column(COLUMN_CUT, i, j).getValue();
+---
+
+ The objective value can also be retrieved via a method getValue.
+ 
+---
+System.out.println("Waste = " + p.getObjective().getValue());
+---
