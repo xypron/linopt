@@ -43,7 +43,7 @@ public class SolverGlpk implements Solver {
      */
     private boolean solveInternal(final Problem p) {
         boolean ret = false;
-        int i, j;
+        int i, j, n;
         glp_prob lp;
         glp_iocp iocp;
         SWIGTYPE_p_int col;

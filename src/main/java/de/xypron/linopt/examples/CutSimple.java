@@ -25,10 +25,6 @@ import de.xypron.linopt.Solver;
 import de.xypron.linopt.Problem;
 import de.xypron.linopt.SolverGlpk;
 
-/**
- * A small cutting stock problem is solved.
- * @author Heinrich Schuchardt
- */
 public class CutSimple {
 
     static final String COLUMN_USE = "u";
@@ -54,7 +50,7 @@ public class CutSimple {
         long[] demand = {20, 10, 3, 7, 2, 1};
 
         // define problem
-        p = new Problem(PROBLEM);
+        p = new Problem().setName(PROBLEM);
 
         // define columns
         for (int i = 0; i < stock.length; i++) {
@@ -72,9 +68,9 @@ public class CutSimple {
         for (int i = 0; i < stock.length; i++) {
             // Minimize waste :
             //     stockLength(i) * u(i) - sum( productLength(j) * x(i,j) )
-            p.objective().add(stock[i], COLUMN_USE, i);
+            p.getObjective().add(stock[i], COLUMN_USE, i);
             for (int j = 0; j < product.length; j++) {
-                p.objective().add(-product[j], COLUMN_CUT, i, j);
+                p.getObjective().add(-product[j], COLUMN_CUT, i, j);
             }
         }
         // define rows
@@ -118,7 +114,7 @@ public class CutSimple {
                     System.out.println();
                 }
             }
-            System.out.println("Waste = " + p.objective().getValue());
+            System.out.println("Waste = " + p.getObjective().getValue());
         }
     }
 }

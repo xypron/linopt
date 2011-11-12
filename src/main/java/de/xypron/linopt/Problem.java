@@ -29,7 +29,7 @@ public class Problem {
     /**
      * Problem name.
      */
-    private String name = null;
+    private String name;
     /**
      * Columns.
      */
@@ -85,22 +85,6 @@ public class Problem {
     }
 
     /**
-     * Creates problem.
-     */
-    public Problem() {
-        
-    }
-    
-    /**
-     * Creates problem.
-     * @param name name
-     */
-    public Problem(final String name) {
-        this();
-        this.name = name;
-    }
-    
-    /**
      * Get problem name.
      * @return problem name
      */
@@ -142,7 +126,6 @@ public class Problem {
      * Get objective function.
      * @return objective function
      */
-    @Deprecated
     public Objective getObjective() {
         return objectiveFunction;
     }
@@ -174,14 +157,6 @@ public class Problem {
             ret = new Column(key);
         }
         return ret;
-    }
-    
-    /**
-     * Gets objective function.
-     * @return 
-     */
-    public Objective objective() {
-        return objectiveFunction;
     }
 
     /**
