@@ -1,7 +1,5 @@
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.xypron.linopt</groupId>
     <artifactId>linopt</artifactId>
@@ -20,8 +18,8 @@
         </repository>
     </repositories>
     <scm>
-        <connection>scm:svn:http://www.xypron.de/svn/linopt/</connection>
-        <url>http://www.xypron.de/viewvc/svn/linopt/</url>
+        <connection>scm:svn:http://www.xypron.de/svn/linopt/tags/linopt-1.1</connection>
+        <url>http://www.xypron.de/viewvc/svn/linopt/tags/linopt-1.1</url>
     </scm>
     <properties>
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
@@ -44,7 +42,7 @@
         </repository>
         <snapshotRepository>
             <uniqueVersion>true</uniqueVersion>
-            <id>file-snapshotRepository></id>
+            <id>file-snapshotRepository&gt;</id>
             <name>Local Snapshot Repository</name>
             <url>file:///home/xypron/rsync/m2repo/snapshotRepository</url>
             <layout>default</layout>
