@@ -21,7 +21,6 @@
     </repositories>
     <scm>
         <connection>scm:svn:http://www.xypron.de/svn/linopt/</connection>
-        <url>http://www.xypron.de/viewvc/svn/linopt/</url>
     </scm>
     <properties>
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
