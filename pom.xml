@@ -18,8 +18,8 @@
         </repository>
     </repositories>
     <scm>
-        <connection>scm:svn:http://www.xypron.de/svn/linopt/tags/linopt-1.1</connection>
-        <url>http://www.xypron.de/viewvc/svn/linopt/tags/linopt-1.1</url>
+        <connection>scm:svn:http://www.xypron.de/svn/linopt</connection>
+        <url>http://www.xypron.de/viewvc/svn/linopt</url>
     </scm>
     <properties>
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
