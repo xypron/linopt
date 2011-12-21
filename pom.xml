@@ -42,7 +42,7 @@
         </repository>
         <snapshotRepository>
             <uniqueVersion>true</uniqueVersion>
-            <id>file-snapshotRepository&gt;</id>
+            <id>file-snapshotRepository</id>
             <name>Local Snapshot Repository</name>
             <url>file:///home/xypron/rsync/m2repo/snapshotRepository</url>
             <layout>default</layout>
