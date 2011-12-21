@@ -53,9 +53,9 @@ public class SolverGlpkTest extends TestCase implements GlpkTerminalListener {
 
         Solver s = new SolverGlpk();
 
-        expResult = p.getObjective().getValue();
-        p.getObjective().setValue(0.);
-        result = p.getObjective().getValue();
+        expResult = p.objective().getValue();
+        p.objective().setValue(0.);
+        result = p.objective().getValue();
         assertFalse("objective set value", result == expResult);
 
         // block output
@@ -64,7 +64,7 @@ public class SolverGlpkTest extends TestCase implements GlpkTerminalListener {
         s.solve(p);
         GlpkTerminal.removeListener(this);
 
-        result = p.getObjective().getValue();
+        result = p.objective().getValue();
         assertEquals("solve", expResult, result);
     }
 
@@ -110,9 +110,9 @@ public class SolverGlpkTest extends TestCase implements GlpkTerminalListener {
         for (int i = 0; i < stock.length; i++) {
             // Minimize waste :
             //     stockLength(i) * u(i) - sum( productLength(j) * x(i,j) )
-            p.getObjective().add(stock[i], COLUMN_USE, i);
+            p.objective().add(stock[i], COLUMN_USE, i);
             for (int j = 0; j < product.length; j++) {
-                p.getObjective().add(-product[j], COLUMN_CUT, i, j);
+                p.objective().add(-product[j], COLUMN_CUT, i, j);
             }
         }
         // define rows
@@ -133,7 +133,7 @@ public class SolverGlpkTest extends TestCase implements GlpkTerminalListener {
         }
 
         // expected result
-        p.getObjective().setValue(32);
+        p.objective().setValue(32);
         return p;
     }
 }

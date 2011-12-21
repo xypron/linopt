@@ -190,6 +190,11 @@ public class SolverGlpk implements Solver {
         for (Problem.Column c : p.getColumns()) {
             c.setValue(GLPK.glp_mip_col_val(lp, c.getColumnNumber()));
         }
+        for (Problem.Row r : p.getRows()) {
+            if (r != obj) {
+                r.setValue(GLPK.glp_mip_row_val(lp, r.getRowNumber()));
+            }
+        }
 
         // free memory
         GLPK.glp_delete_prob(lp);

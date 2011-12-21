@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.xypron.linopt</groupId>
     <artifactId>linopt</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <name>Linear Optimization Wrapper for Java</name>
     <description>
         Wrapper for linear optimization solver
@@ -18,8 +18,8 @@
         </repository>
     </repositories>
     <scm>
-        <connection>scm:svn:http://www.xypron.de/svn/linopt/tags/linopt-1.1</connection>
-        <url>http://www.xypron.de/viewvc/svn/linopt/tags/linopt-1.1</url>
+        <connection>scm:svn:http://www.xypron.de/svn/linopt</connection>
+        <url>http://www.xypron.de/viewvc/svn/linopt</url>
     </scm>
     <properties>
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
@@ -42,7 +42,7 @@
         </repository>
         <snapshotRepository>
             <uniqueVersion>true</uniqueVersion>
-            <id>file-snapshotRepository&gt;</id>
+            <id>file-snapshotRepository</id>
             <name>Local Snapshot Repository</name>
             <url>file:///home/xypron/rsync/m2repo/snapshotRepository</url>
             <layout>default</layout>
