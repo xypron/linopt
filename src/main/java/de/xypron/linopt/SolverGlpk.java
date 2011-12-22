@@ -18,7 +18,12 @@ package de.xypron.linopt;
 
 import java.util.Map.Entry;
 import java.util.TreeMap;
-import org.gnu.glpk.*;
+import org.gnu.glpk.GLPK;
+import org.gnu.glpk.GLPKConstants;
+import org.gnu.glpk.SWIGTYPE_p_double;
+import org.gnu.glpk.SWIGTYPE_p_int;
+import org.gnu.glpk.glp_iocp;
+import org.gnu.glpk.glp_prob;
 
 /**
  * Wrapper for GLPK for Java.
@@ -93,7 +98,7 @@ public class SolverGlpk implements Solver {
         }
 
         // create objective
-        obj = p.getObjective();
+        obj = p.objective();
         if (obj != null) {
             GLPK.glp_set_obj_name(lp, obj.getKey());
             if (obj.getDirection() == Problem.Direction.MINIMIZE) {
@@ -141,9 +146,7 @@ public class SolverGlpk implements Solver {
             if (e.getKey() == obj) {
                 continue;
             }
-            for (Entry<Problem.Column, Double> f : e.getValue().entrySet()) {
-                ++i;
-            }
+            i += e.getValue().size();
         }
         col = GLPK.new_intArray(i);
         row = GLPK.new_intArray(i);

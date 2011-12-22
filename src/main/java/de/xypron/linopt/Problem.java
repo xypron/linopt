@@ -239,6 +239,7 @@ public class Problem {
      * Column.
      */
     public class Column implements Comparable<Column> {
+
         /**
          * Key for column.
          */
@@ -273,9 +274,13 @@ public class Problem {
             initialize();
         }
 
+        /**
+         * Initializes problem.
+         */
         private void initialize() {
             if (columns.containsKey(key)) {
-                throw new RuntimeException("Column " + key + " already exists.");
+                throw new RuntimeException(
+                        "Column " + key + " already exists.");
             }
             columns.put(key, this);
         }
@@ -298,7 +303,7 @@ public class Problem {
 
         /**
          * Get dual value.
-         * @return dual
+         * @return dual value
          */
         public double getDual() {
             return dual;
@@ -306,7 +311,7 @@ public class Problem {
 
         /**
          * Set dual value.
-         * @param dual
+         * @param dual dual value
          */
         public void setDual(final double dual) {
             this.dual = dual;
@@ -389,7 +394,7 @@ public class Problem {
         }
 
         /**
-         * Set column type.
+         * Sets column type.
          * @param type column type
          * @return column
          */
@@ -399,11 +404,11 @@ public class Problem {
         }
 
         /**
-         * Set coefficient.
+         * Sets coefficient.
          * @param value coefficient
          * @param rowName row name
          * @param index row indices
-         * @return
+         * @return column
          */
         public Column add(final double value, final String rowName,
                 final Object... index) {
@@ -441,7 +446,7 @@ public class Problem {
         private Direction direction;
 
         /**
-         * Create objective.
+         * Creates objective.
          * @param key name
          * @param direction optimization direction
          */
@@ -451,7 +456,7 @@ public class Problem {
         }
 
         /**
-         * Get optimization direction.
+         * Gets optimization direction.
          * @return optimization direction
          */
         public Direction getDirection() {
@@ -459,7 +464,7 @@ public class Problem {
         }
 
         /**
-         * Set optimization direction
+         * Sets optimization direction.
          * @param direction optimization direction
          */
         public void setDirection(final Direction direction) {
@@ -471,6 +476,7 @@ public class Problem {
      * Row.
      */
     public class Row implements Comparable<Row> {
+
         /**
          * Key.
          */
@@ -566,7 +572,7 @@ public class Problem {
         }
 
         /**
-         * Get upper bound.
+         * Gets upper bound.
          * @return upper bound
          */
         public Double getUpperBound() {
@@ -574,7 +580,7 @@ public class Problem {
         }
 
         /**
-         * Set upper bound.
+         * Sets upper bound.
          * @param upperBound upper bound
          */
         public void setUpperBound(final Double upperBound) {
@@ -582,7 +588,7 @@ public class Problem {
         }
 
         /**
-         * Get value.
+         * Gets value.
          * @return value
          */
         public double getValue() {
@@ -590,7 +596,7 @@ public class Problem {
         }
 
         /**
-         * Set value
+         * Sets value.
          * @param value value
          */
         public void setValue(final double value) {
