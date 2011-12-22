@@ -100,7 +100,7 @@ public class Problem {
     }
 
     /**
-     * Get problem name.
+     * Gets problem name.
      * @return problem name
      */
     public String getName() {
@@ -108,7 +108,7 @@ public class Problem {
     }
 
     /**
-     * Set problem name.
+     * Sets problem name.
      * @param name problem name
      * @return problem
      */
@@ -118,7 +118,7 @@ public class Problem {
     }
 
     /**
-     * Get columns.
+     * Gets columns.
      * @return columns
      */
     public TreeSet<Column> getColumns() {
@@ -130,7 +130,7 @@ public class Problem {
     }
 
     /**
-     * Get matrix.
+     * Gets matrix.
      * @return matrix
      */
     public TreeMap<Row, TreeMap<Column, Double>> getMatrix() {
@@ -138,7 +138,7 @@ public class Problem {
     }
 
     /**
-     * Get objective function.
+     * Gets objective function.
      * @return objective function
      */
     @Deprecated
@@ -147,7 +147,7 @@ public class Problem {
     }
 
     /**
-     * Get rows (including objective).
+     * Gets rows (including objective).
      * @return rows
      */
     public TreeSet<Row> getRows() {
@@ -159,7 +159,7 @@ public class Problem {
     }
 
     /**
-     * Get column identified by name and indices.
+     * Gets column identified by name and indices.
      * @param name column name
      * @param index indices
      * @return column
@@ -199,7 +199,7 @@ public class Problem {
     }
 
     /**
-     * Get row identified by name and indices.
+     * Gets row identified by name and indices.
      * @param name name
      * @param index index
      * @return row
@@ -286,7 +286,7 @@ public class Problem {
         }
 
         /**
-         * Get column name.
+         * Gets column name.
          * @return name
          */
         public String getKey() {
@@ -294,7 +294,7 @@ public class Problem {
         }
 
         /**
-         * Get column type.
+         * Gets column type.
          * @return type
          */
         public ColumnType getType() {
@@ -302,7 +302,7 @@ public class Problem {
         }
 
         /**
-         * Get dual value.
+         * Gets dual value.
          * @return dual value
          */
         public double getDual() {
@@ -310,7 +310,7 @@ public class Problem {
         }
 
         /**
-         * Set dual value.
+         * Sets dual value.
          * @param dual dual value
          */
         public void setDual(final double dual) {
@@ -318,7 +318,8 @@ public class Problem {
         }
 
         /**
-         * Get lower bound.
+         * Gets lower bound.
+         * Null signifies that the bound is not set.
          * @return lower bound.
          */
         public Double getLowerBound() {
@@ -326,7 +327,8 @@ public class Problem {
         }
 
         /**
-         * Set lower bound.
+         * Sets lower bound.
+         * Null signifies that the bound is not set.
          * @param lowerBound lower bound
          */
         public void setLowerBound(final Double lowerBound) {
@@ -334,7 +336,7 @@ public class Problem {
         }
 
         /**
-         * Get column number.
+         * Gets column number.
          * @return column number
          */
         public int getColumnNumber() {
@@ -342,7 +344,7 @@ public class Problem {
         }
 
         /**
-         * Set column number.
+         * Sets column number.
          * @param columnNumber column number
          */
         public void setColumnNumber(final int columnNumber) {
@@ -350,7 +352,8 @@ public class Problem {
         }
 
         /**
-         * Get upper bound
+         * Gets upper bound.
+         * Null signifies that the bound is not set.
          * @return upper bound
          */
         public Double getUpperBound() {
@@ -358,7 +361,8 @@ public class Problem {
         }
 
         /**
-         * Set upper bound.
+         * Sets upper bound.
+         * Null signifies that the bound is not set.
          * @param upperBound upper bound
          */
         public void setUpperBound(final Double upperBound) {
@@ -366,7 +370,7 @@ public class Problem {
         }
 
         /**
-         * Get value.
+         * Gets value.
          * @return value
          */
         public double getValue() {
@@ -374,7 +378,7 @@ public class Problem {
         }
 
         /**
-         * Set value.
+         * Sets value.
          * @param value value
          */
         public void setValue(final double value) {
@@ -383,6 +387,7 @@ public class Problem {
 
         /**
          * Sets bounds of column.
+         * Null signifies that the bound is not set.
          * @param lowerBound lower bound
          * @param upperBound upper bound
          * @return this column
@@ -416,7 +421,7 @@ public class Problem {
         }
 
         /**
-         * Set coefficient.
+         * Sets coefficient.
          * @param value value
          * @param row row
          * @return
@@ -516,7 +521,7 @@ public class Problem {
         }
 
         /**
-         * Get row name.
+         * Gets row name.
          * @return name
          */
         public String getKey() {
@@ -524,7 +529,7 @@ public class Problem {
         }
 
         /**
-         * Get row dual value.
+         * Gets row dual value.
          * @return dual
          */
         public double getDual() {
@@ -532,7 +537,7 @@ public class Problem {
         }
 
         /**
-         * Set row dual value.
+         * Sets row dual value.
          * @param dual dual
          */
         public void setDual(final double dual) {
@@ -540,7 +545,8 @@ public class Problem {
         }
 
         /**
-         * Get lower bound.
+         * Gets lower bound.
+         * Null signifies that the bound is not set.
          * @return lower bound
          */
         public Double getLowerBound() {
@@ -548,7 +554,8 @@ public class Problem {
         }
 
         /**
-         * Set lower bound.
+         * Sets lower bound.
+         * Null signifies that the bound is not set.
          * @param lowerBound lower bound
          */
         public void setLowerBound(final Double lowerBound) {
@@ -556,7 +563,7 @@ public class Problem {
         }
 
         /**
-         * Get row number.
+         * Gets row number.
          * @return row number
          */
         public int getRowNumber() {
@@ -564,7 +571,7 @@ public class Problem {
         }
 
         /**
-         * Set row number.
+         * Sets row number.
          * @param rowNumber row number
          */
         public void setRowNumber(final int rowNumber) {
@@ -573,6 +580,7 @@ public class Problem {
 
         /**
          * Gets upper bound.
+         * Null signifies that the bound is not set.
          * @return upper bound
          */
         public Double getUpperBound() {
@@ -581,6 +589,7 @@ public class Problem {
 
         /**
          * Sets upper bound.
+         * Null signifies that the bound is not set.
          * @param upperBound upper bound
          */
         public void setUpperBound(final Double upperBound) {
@@ -604,7 +613,7 @@ public class Problem {
         }
 
         /**
-         * Set coefficient.
+         * Sets coefficient.
          * @param value coefficient
          * @param columnName column name
          * @param index column indices
@@ -616,7 +625,7 @@ public class Problem {
         }
 
         /**
-         * Set coefficient.
+         * Sets coefficient.
          * @param value value
          * @param column column
          * @return this row
@@ -627,7 +636,8 @@ public class Problem {
         }
 
         /**
-         * Set bounds.
+         * Sets bounds.
+         * Null signifies that the bound is not set.
          * @param lowerBound lower bound
          * @param upperBound upper bound
          * @return this row
