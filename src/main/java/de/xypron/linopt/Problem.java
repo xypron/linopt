@@ -22,6 +22,38 @@ import java.util.TreeSet;
 
 /**
  * Linear programming problem.
+ * <p>Columns are created like this:
+ * <pre>
+ * Problem p = new Problem().
+ *     setName("Cutting Stock");
+ * // x(i,j) : x pieces of product j are cut from stock i
+ * for (int i = 0; i < stock.length; i++) {
+ *     for (int j = 0; j < product.length; j++) {
+ *     p.column("x", i, j).
+ *         type(Problem.ColumnType.INTEGER).
+ *         bounds(0., null);
+ *     }
+ * }
+ * </pre>
+ * <p>Rows can be created and populated like this:
+ * <pre>
+ * // demand(j) = sum( x(i,j) )
+ * for (int j = 0; j < product.length; j++) {
+ *     p.row("demand", j).bounds(demand[j], demand[j]);
+ *     for (int i = 0; i < stock.length; i++) {
+ *         p.row("demand", j).
+ *             add(1., "x", i, j);
+ *     }
+ * }
+ * </pre>
+ * <p>The keys for rows and columns are constructed from the name and the
+ * indices by concatenation using parantheses and commas, e.g.
+ * <pre>
+ * name(index1,index2,index3)
+ * </pre>
+ * Hence it is advisable not to use parantheses and commas in names and
+ * indices to avoid duplicate keys.
+ * 
  * @author Heinrich Schuchardt
  */
 public class Problem {
@@ -139,6 +171,7 @@ public class Problem {
 
     /**
      * Gets objective function.
+     * This method is deprecated. Use method objective() instead.
      * @return objective function
      */
     @Deprecated
@@ -312,9 +345,11 @@ public class Problem {
         /**
          * Sets dual value.
          * @param dual dual value
+         * @return column
          */
-        public void setDual(final double dual) {
+        public Column setDual(final double dual) {
             this.dual = dual;
+            return this;
         }
 
         /**
@@ -330,9 +365,11 @@ public class Problem {
          * Sets lower bound.
          * Null signifies that the bound is not set.
          * @param lowerBound lower bound
+         * @return column
          */
-        public void setLowerBound(final Double lowerBound) {
+        public Column setLowerBound(final Double lowerBound) {
             this.lowerBound = lowerBound;
+            return this;
         }
 
         /**
@@ -346,9 +383,11 @@ public class Problem {
         /**
          * Sets column number.
          * @param columnNumber column number
+         * @return column
          */
-        public void setColumnNumber(final int columnNumber) {
+        public Column setColumnNumber(final int columnNumber) {
             this.columnNumber = columnNumber;
+            return this;
         }
 
         /**
@@ -364,9 +403,11 @@ public class Problem {
          * Sets upper bound.
          * Null signifies that the bound is not set.
          * @param upperBound upper bound
+         * @return column
          */
-        public void setUpperBound(final Double upperBound) {
+        public Column setUpperBound(final Double upperBound) {
             this.upperBound = upperBound;
+            return this;
         }
 
         /**
@@ -380,9 +421,11 @@ public class Problem {
         /**
          * Sets value.
          * @param value value
+         * @return column
          */
-        public void setValue(final double value) {
+        public Column setValue(final double value) {
             this.value = value;
+            return this;
         }
 
         /**
@@ -424,7 +467,7 @@ public class Problem {
          * Sets coefficient.
          * @param value value
          * @param row row
-         * @return
+         * @return column
          */
         public Column add(final double value, final Row row) {
             matrix.get(row).put(this, value);
@@ -471,9 +514,11 @@ public class Problem {
         /**
          * Sets optimization direction.
          * @param direction optimization direction
+         * @return objective
          */
-        public void setDirection(final Direction direction) {
+        public Objective setDirection(final Direction direction) {
             this.direction = direction;
+            return this;
         }
     }
 
@@ -539,9 +584,11 @@ public class Problem {
         /**
          * Sets row dual value.
          * @param dual dual
+         * @return row
          */
-        public void setDual(final double dual) {
+        public Row setDual(final double dual) {
             this.dual = dual;
+            return this;
         }
 
         /**
@@ -557,9 +604,11 @@ public class Problem {
          * Sets lower bound.
          * Null signifies that the bound is not set.
          * @param lowerBound lower bound
+         * @return row
          */
-        public void setLowerBound(final Double lowerBound) {
+        public Row setLowerBound(final Double lowerBound) {
             this.lowerBound = lowerBound;
+            return this;
         }
 
         /**
@@ -573,9 +622,11 @@ public class Problem {
         /**
          * Sets row number.
          * @param rowNumber row number
+         * @return row
          */
-        public void setRowNumber(final int rowNumber) {
+        public Row setRowNumber(final int rowNumber) {
             this.rowNumber = rowNumber;
+            return this;
         }
 
         /**
@@ -591,9 +642,11 @@ public class Problem {
          * Sets upper bound.
          * Null signifies that the bound is not set.
          * @param upperBound upper bound
+         * @return row
          */
-        public void setUpperBound(final Double upperBound) {
+        public Row setUpperBound(final Double upperBound) {
             this.upperBound = upperBound;
+            return this;
         }
 
         /**
@@ -607,9 +660,11 @@ public class Problem {
         /**
          * Sets value.
          * @param value value
+         * @return row
          */
-        public void setValue(final double value) {
+        public Row setValue(final double value) {
             this.value = value;
+            return this;
         }
 
         /**
