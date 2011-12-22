@@ -45,7 +45,7 @@ public class Problem {
     private TreeMap<Row, TreeMap<Column, Double>> matrix =
             new TreeMap<Row, TreeMap<Column, Double>>();
     /**
-     * Rows
+     * Rows.
      */
     private TreeMap<String, Row> rows =
             new TreeMap<String, Row>();
@@ -88,9 +88,8 @@ public class Problem {
      * Creates problem.
      */
     public Problem() {
-        
     }
-    
+
     /**
      * Creates problem.
      * @param name name
@@ -99,7 +98,7 @@ public class Problem {
         this();
         this.name = name;
     }
-    
+
     /**
      * Get problem name.
      * @return problem name
@@ -175,10 +174,10 @@ public class Problem {
         }
         return ret;
     }
-    
+
     /**
      * Gets objective function.
-     * @return 
+     * @return objective
      */
     public Objective objective() {
         return objectiveFunction;
@@ -201,8 +200,8 @@ public class Problem {
 
     /**
      * Get row identified by name and indices.
-     * @param name
-     * @param index
+     * @param name name
+     * @param index index
      * @return row
      */
     public Row row(final String name, final Object... index) {
@@ -218,8 +217,8 @@ public class Problem {
 
     /**
      * Create key for column or row.
-     * @param name
-     * @param index
+     * @param name name
+     * @param index index
      * @return key
      */
     private String key(final String name, final Object... index) {
@@ -240,16 +239,36 @@ public class Problem {
      * Column.
      */
     public class Column implements Comparable<Column> {
-
+        /**
+         * Key for column.
+         */
         private String key;
+        /**
+         * Column type.
+         */
         private ColumnType type = null;
+        /**
+         * Lower bound.
+         */
         private Double lowerBound = null;
+        /**
+         * Upper bound.
+         */
         private Double upperBound = null;
+        /**
+         * Column number.
+         */
         private int columnNumber;
+        /**
+         * Column value.
+         */
         private double value;
+        /**
+         * Column dual value.
+         */
         private double dual;
 
-        private Column(String key) {
+        private Column(final String key) {
             this.key = key;
             initialize();
         }
@@ -353,7 +372,7 @@ public class Problem {
          * Set value.
          * @param value value
          */
-        public void setValue(double value) {
+        public void setValue(final double value) {
             this.value = value;
         }
 
@@ -452,12 +471,29 @@ public class Problem {
      * Row.
      */
     public class Row implements Comparable<Row> {
-
+        /**
+         * Key.
+         */
         private String key;
+        /**
+         * Lower bound.
+         */
         private Double lowerBound = null;
+        /**
+         * Upper bound.
+         */
         private Double upperBound = null;
+        /**
+         * Row number.
+         */
         private int rowNumber;
+        /**
+         * Value.
+         */
         private double value;
+        /**
+         * Dual value.
+         */
         private double dual;
 
         private Row(final String key) {
@@ -493,7 +529,7 @@ public class Problem {
          * Set row dual value.
          * @param dual dual
          */
-        public void setDual(double dual) {
+        public void setDual(final double dual) {
             this.dual = dual;
         }
 
@@ -602,7 +638,7 @@ public class Problem {
         }
 
         @Override
-        public int compareTo(Row o) {
+        public int compareTo(final Row o) {
             return key.compareTo(o.key);
         }
     }
