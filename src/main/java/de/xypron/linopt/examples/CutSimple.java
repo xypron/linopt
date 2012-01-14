@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Heinrich Schuchardt
+ *  Copyright (C) 2010-2012 Heinrich Schuchardt
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,8 +21,8 @@
  */
 package de.xypron.linopt.examples;
 
-import de.xypron.linopt.Solver;
 import de.xypron.linopt.Problem;
+import de.xypron.linopt.Solver;
 import de.xypron.linopt.SolverGlpk;
 
 /**
@@ -93,6 +93,9 @@ public class CutSimple {
                 p.row(ROW_DEMAND, j).add(1., COLUMN_CUT, i, j);
             }
         }
+        
+        // write problem
+        System.out.println(p.problemToString());
 
         // solve
         if (!s.solve(p)) {

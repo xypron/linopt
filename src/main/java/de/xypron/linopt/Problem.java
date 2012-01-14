@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Heinrich Schuchardt
+ *  Copyright (C) 2010-2012, Heinrich Schuchardt
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,8 +21,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
- * Linear programming problem.
- * <p>Columns are created like this:
+ * Linear programming problem. <p>Columns are created like this:
  * <pre>
  * Problem p = new Problem().
  *     setName("Cutting Stock");
@@ -34,8 +33,7 @@ import java.util.TreeSet;
  *         bounds(0., null);
  *     }
  * }
- * </pre>
- * <p>Rows can be created and populated like this:
+ * </pre> <p>Rows can be created and populated like this:
  * <pre>
  * // demand(j) = sum( x(i,j) )
  * for (int j = 0; j < product.length; j++) {
@@ -45,15 +43,13 @@ import java.util.TreeSet;
  *             add(1., "x", i, j);
  *     }
  * }
- * </pre>
- * <p>The keys for rows and columns are constructed from the name and the
- * indices by concatenation using parantheses and commas, e.g.
+ * </pre> <p>The keys for rows and columns are constructed from the name and the
+ * indices by concatenation using parentheses and commas, e.g.
  * <pre>
  * name(index1,index2,index3)
- * </pre>
- * Hence it is advisable not to use parantheses and commas in names and
- * indices to avoid duplicate keys.
- * 
+ * </pre> Hence it is advisable not to use parentheses and commas in names
+ * and indices to avoid duplicate keys.
+ *
  * @author Heinrich Schuchardt
  */
 public class Problem {
@@ -124,6 +120,7 @@ public class Problem {
 
     /**
      * Creates problem.
+     *
      * @param name name
      */
     public Problem(final String name) {
@@ -133,6 +130,7 @@ public class Problem {
 
     /**
      * Gets problem name.
+     *
      * @return problem name
      */
     public String getName() {
@@ -141,6 +139,7 @@ public class Problem {
 
     /**
      * Sets problem name.
+     *
      * @param name problem name
      * @return problem
      */
@@ -151,6 +150,7 @@ public class Problem {
 
     /**
      * Gets columns.
+     *
      * @return columns
      */
     public TreeSet<Column> getColumns() {
@@ -163,6 +163,7 @@ public class Problem {
 
     /**
      * Gets matrix.
+     *
      * @return matrix
      */
     public TreeMap<Row, TreeMap<Column, Double>> getMatrix() {
@@ -170,8 +171,9 @@ public class Problem {
     }
 
     /**
-     * Gets objective function.
-     * This method is deprecated. Use method objective() instead.
+     * Gets objective function. This method is deprecated. Use method
+     * objective() instead.
+     *
      * @return objective function
      */
     @Deprecated
@@ -181,6 +183,7 @@ public class Problem {
 
     /**
      * Gets rows (including objective).
+     *
      * @return rows
      */
     public TreeSet<Row> getRows() {
@@ -193,6 +196,7 @@ public class Problem {
 
     /**
      * Gets column identified by name and indices.
+     *
      * @param name column name
      * @param index indices
      * @return column
@@ -210,6 +214,7 @@ public class Problem {
 
     /**
      * Gets objective function.
+     *
      * @return objective
      */
     public Objective objective() {
@@ -217,7 +222,8 @@ public class Problem {
     }
 
     /**
-     * Create objective function.
+     * Creates objective function.
+     *
      * @param name name
      * @param direction optimization direction
      * @return objective
@@ -233,6 +239,7 @@ public class Problem {
 
     /**
      * Gets row identified by name and indices.
+     *
      * @param name name
      * @param index index
      * @return row
@@ -249,7 +256,8 @@ public class Problem {
     }
 
     /**
-     * Create key for column or row.
+     * Creates key for column or row.
+     *
      * @param name name
      * @param index index
      * @return key
@@ -266,6 +274,36 @@ public class Problem {
             key += ")";
         }
         return key;
+    }
+
+    /**
+     * Returns problem as string.
+     *
+     * @return problem as string
+     */
+    public String problemToString() {
+        String ret = "";
+        ret += "problem " + name + ";\n\n";
+        for (Entry<String, Column> entry : columns.entrySet()) {
+            ret += entry.getValue().definitionToString() + "\n";
+        }
+        ret += "\n" + objectiveFunction.constraintToString() + "\n\n";
+
+        for (Entry<String, Row> entry : rows.entrySet()) {
+            Row row = entry.getValue();
+            if (!row.equals(objectiveFunction)) {
+                ret += row.constraintToString() + "\n";
+            }
+        }
+        
+        ret += "\nend;\n";
+
+        return ret;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     /**
@@ -320,6 +358,7 @@ public class Problem {
 
         /**
          * Gets column name.
+         *
          * @return name
          */
         public String getKey() {
@@ -328,6 +367,7 @@ public class Problem {
 
         /**
          * Gets column type.
+         *
          * @return type
          */
         public ColumnType getType() {
@@ -336,6 +376,7 @@ public class Problem {
 
         /**
          * Gets dual value.
+         *
          * @return dual value
          */
         public double getDual() {
@@ -344,6 +385,7 @@ public class Problem {
 
         /**
          * Sets dual value.
+         *
          * @param dual dual value
          */
         public void setDual(final double dual) {
@@ -351,8 +393,8 @@ public class Problem {
         }
 
         /**
-         * Gets lower bound.
-         * Null signifies that the bound is not set.
+         * Gets lower bound. Null signifies that the bound is not set.
+         *
          * @return lower bound.
          */
         public Double getLowerBound() {
@@ -360,8 +402,8 @@ public class Problem {
         }
 
         /**
-         * Sets lower bound.
-         * Null signifies that the bound is not set.
+         * Sets lower bound. Null signifies that the bound is not set.
+         *
          * @param lowerBound lower bound
          */
         public void setLowerBound(final Double lowerBound) {
@@ -370,6 +412,7 @@ public class Problem {
 
         /**
          * Gets column number.
+         *
          * @return column number
          */
         public int getColumnNumber() {
@@ -378,6 +421,7 @@ public class Problem {
 
         /**
          * Sets column number.
+         *
          * @param columnNumber column number
          */
         public void setColumnNumber(final int columnNumber) {
@@ -385,8 +429,8 @@ public class Problem {
         }
 
         /**
-         * Gets upper bound.
-         * Null signifies that the bound is not set.
+         * Gets upper bound. Null signifies that the bound is not set.
+         *
          * @return upper bound
          */
         public Double getUpperBound() {
@@ -394,8 +438,8 @@ public class Problem {
         }
 
         /**
-         * Sets upper bound.
-         * Null signifies that the bound is not set.
+         * Sets upper bound. Null signifies that the bound is not set.
+         *
          * @param upperBound upper bound
          */
         public void setUpperBound(final Double upperBound) {
@@ -404,6 +448,7 @@ public class Problem {
 
         /**
          * Gets value.
+         *
          * @return value
          */
         public double getValue() {
@@ -412,6 +457,7 @@ public class Problem {
 
         /**
          * Sets value.
+         *
          * @param value value
          */
         public void setValue(final double value) {
@@ -419,8 +465,8 @@ public class Problem {
         }
 
         /**
-         * Sets bounds of column.
-         * Null signifies that the bound is not set.
+         * Sets bounds of column. Null signifies that the bound is not set.
+         *
          * @param lowerBound lower bound
          * @param upperBound upper bound
          * @return this column
@@ -433,6 +479,7 @@ public class Problem {
 
         /**
          * Sets column type.
+         *
          * @param type column type
          * @return column
          */
@@ -443,6 +490,7 @@ public class Problem {
 
         /**
          * Sets coefficient.
+         *
          * @param value coefficient
          * @param rowName row name
          * @param index row indices
@@ -455,6 +503,7 @@ public class Problem {
 
         /**
          * Sets coefficient.
+         *
          * @param value value
          * @param row row
          * @return
@@ -462,6 +511,34 @@ public class Problem {
         public Column add(final double value, final Row row) {
             matrix.get(row).put(this, value);
             return this;
+        }
+
+        /**
+         * Returns definition as string.
+         *
+         * @return definition as string.
+         */
+        public String definitionToString() {
+            String ret = "var " + key;
+
+            // column type
+            if (type.equals(ColumnType.BINARY)) {
+                ret += ", binary";
+            } else if (type.equals(ColumnType.INTEGER)) {
+                ret += ", integer";
+            }
+
+            // bounds
+            if (lowerBound != null) {
+                ret += ", >= " + lowerBound;
+            }
+            if (upperBound != null) {
+                ret += ", <= " + upperBound;
+            }
+
+            ret += ";";
+            
+            return ret;
         }
 
         @Override
@@ -485,6 +562,7 @@ public class Problem {
 
         /**
          * Creates objective.
+         *
          * @param key name
          * @param direction optimization direction
          */
@@ -495,6 +573,7 @@ public class Problem {
 
         /**
          * Gets optimization direction.
+         *
          * @return optimization direction
          */
         public Direction getDirection() {
@@ -503,6 +582,7 @@ public class Problem {
 
         /**
          * Sets optimization direction.
+         *
          * @param direction optimization direction
          */
         public void setDirection(final Direction direction) {
@@ -555,6 +635,7 @@ public class Problem {
 
         /**
          * Gets row name.
+         *
          * @return name
          */
         public String getKey() {
@@ -563,6 +644,7 @@ public class Problem {
 
         /**
          * Gets row dual value.
+         *
          * @return dual
          */
         public double getDual() {
@@ -571,6 +653,7 @@ public class Problem {
 
         /**
          * Sets row dual value.
+         *
          * @param dual dual
          */
         public void setDual(final double dual) {
@@ -578,8 +661,8 @@ public class Problem {
         }
 
         /**
-         * Gets lower bound.
-         * Null signifies that the bound is not set.
+         * Gets lower bound. Null signifies that the bound is not set.
+         *
          * @return lower bound
          */
         public Double getLowerBound() {
@@ -587,8 +670,8 @@ public class Problem {
         }
 
         /**
-         * Sets lower bound.
-         * Null signifies that the bound is not set.
+         * Sets lower bound. Null signifies that the bound is not set.
+         *
          * @param lowerBound lower bound
          */
         public void setLowerBound(final Double lowerBound) {
@@ -597,6 +680,7 @@ public class Problem {
 
         /**
          * Gets row number.
+         *
          * @return row number
          */
         public int getRowNumber() {
@@ -605,6 +689,7 @@ public class Problem {
 
         /**
          * Sets row number.
+         *
          * @param rowNumber row number
          */
         public void setRowNumber(final int rowNumber) {
@@ -612,8 +697,8 @@ public class Problem {
         }
 
         /**
-         * Gets upper bound.
-         * Null signifies that the bound is not set.
+         * Gets upper bound. Null signifies that the bound is not set.
+         *
          * @return upper bound
          */
         public Double getUpperBound() {
@@ -621,8 +706,8 @@ public class Problem {
         }
 
         /**
-         * Sets upper bound.
-         * Null signifies that the bound is not set.
+         * Sets upper bound. Null signifies that the bound is not set.
+         *
          * @param upperBound upper bound
          */
         public void setUpperBound(final Double upperBound) {
@@ -631,6 +716,7 @@ public class Problem {
 
         /**
          * Gets value.
+         *
          * @return value
          */
         public double getValue() {
@@ -639,6 +725,7 @@ public class Problem {
 
         /**
          * Sets value.
+         *
          * @param value value
          */
         public void setValue(final double value) {
@@ -647,6 +734,7 @@ public class Problem {
 
         /**
          * Sets coefficient.
+         *
          * @param value coefficient
          * @param columnName column name
          * @param index column indices
@@ -659,6 +747,7 @@ public class Problem {
 
         /**
          * Sets coefficient.
+         *
          * @param value value
          * @param column column
          * @return this row
@@ -669,8 +758,8 @@ public class Problem {
         }
 
         /**
-         * Sets bounds.
-         * Null signifies that the bound is not set.
+         * Sets bounds. Null signifies that the bound is not set.
+         *
          * @param lowerBound lower bound
          * @param upperBound upper bound
          * @return this row
@@ -679,6 +768,52 @@ public class Problem {
             this.lowerBound = lowerBound;
             this.upperBound = upperBound;
             return this;
+        }
+
+        /**
+         * Outputs constraint as string.
+         *
+         * @return constraint as string.
+         */
+        public String constraintToString() {
+            String ret = "";
+            String plus = " ";
+            final String minus = " - ";
+
+            if (this == objectiveFunction) {
+                if (objectiveFunction.direction.equals(Direction.MINIMIZE)) {
+                    ret += "minimize ";
+                } else if (objectiveFunction.direction.equals(Direction.MAXIMIZE)) {
+                    ret += "minimize ";
+                }
+                ret += key + " :";
+            } else {
+                ret += "s.t. " + key + " :";
+            }
+
+            if (lowerBound != null) {
+                ret += " " + lowerBound + " <=";
+            }
+
+            for (Entry<Column, Double> entry : matrix.get(this).entrySet()) {
+                Column col = entry.getKey();
+                Double val = entry.getValue();
+                if (val >= 0) {
+                    ret += plus + val;
+                    plus = " + ";
+                } else {
+                    ret += minus + -val;
+                }
+                ret += " " + col.getKey();
+            }
+
+            if (upperBound != null) {
+                ret += " <= " + upperBound;
+            }
+            
+            ret += ";";
+
+            return ret;
         }
 
         @Override
