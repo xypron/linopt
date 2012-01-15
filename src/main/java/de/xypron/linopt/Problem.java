@@ -506,7 +506,7 @@ public class Problem {
          *
          * @param value value
          * @param row row
-         * @return
+         * @return column
          */
         public Column add(final double value, final Row row) {
             matrix.get(row).put(this, value);

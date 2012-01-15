@@ -242,7 +242,7 @@
         <dependency>
             <groupId>org.gnu.glpk</groupId>
             <artifactId>glpk-java</artifactId>
-            <version>1.0.20</version>
+            <version>1.0.19</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
