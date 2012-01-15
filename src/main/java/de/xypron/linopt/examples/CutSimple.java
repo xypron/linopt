@@ -24,8 +24,6 @@ package de.xypron.linopt.examples;
 import de.xypron.linopt.Problem;
 import de.xypron.linopt.Solver;
 import de.xypron.linopt.SolverGlpk;
-import java.util.* ;
-import javax.swing.* ;
 
 /**
  * A small cutting stock problem is solved.
@@ -45,9 +43,6 @@ public class CutSimple {
     }
     
     public static void main(final String[] args) {
-
-        Properties prop=System.getProperties();
-        System.out.println(prop.get("java.library.path"));
 
         Solver s = new SolverGlpk();
         Problem p;
