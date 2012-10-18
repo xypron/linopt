@@ -15,8 +15,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * This program solves a small cutting stock problem.
- * For solving usual size problems column generation should be used.
+ * This program solves a small cutting stock problem. For solving usual size
+ * problems column generation should be used.
+ *
  * @author Heinrich Schuchardt
  */
 package de.xypron.linopt.examples;
@@ -24,26 +25,62 @@ package de.xypron.linopt.examples;
 import de.xypron.linopt.Problem;
 import de.xypron.linopt.Solver;
 import de.xypron.linopt.SolverGlpk;
+import org.gnu.glpk.GLPK;
+import org.gnu.glpk.GlpkCallback;
+import org.gnu.glpk.GlpkCallbackListener;
+import org.gnu.glpk.glp_tree;
 
 /**
  * A small cutting stock problem is solved.
+ *
  * @author Heinrich Schuchardt
  */
-public class CutSimple {
+public class CutSimple
+   implements GlpkCallbackListener {
 
+    /**
+     * Column identifier for usage. u(i) : stock element i is used
+     */
     static final String COLUMN_USE = "u";
+    /**
+     * Column identifier for cuts. x(i,j) : x pieces of product j are cut from
+     * stock i
+     */
     static final String COLUMN_CUT = "x";
+    /**
+     * Row identifier for objective.
+     */
     static final String OBJECTIVE = "waste";
+    /**
+     * Problem identifier.
+     */
     static final String PROBLEM = "CuttingStock";
+    /**
+     * Row identifier for demand.
+     */
     static final String ROW_DEMAND = "demand";
+    /**
+     * Row identifier for stock length.
+     */
     static final String ROW_STOCK = "stock";
 
+    /**
+     * Private constructor, never called.
+     */
     private CutSimple() {
-        
+    }
+
+    /**
+     * Main method.
+     *
+     * @param args command line arguments
+     */
+    public static void main(final String[] args) {
+        new CutSimple().run();
     }
     
-    public static void main(final String[] args) {
-
+    private void run() {
+        GlpkCallback.addListener(this);
         Solver s = new SolverGlpk();
         Problem p;
         // lengths of stock items
@@ -93,7 +130,7 @@ public class CutSimple {
                 p.row(ROW_DEMAND, j).add(1., COLUMN_CUT, i, j);
             }
         }
-        
+
         // write problem
         System.out.println(p.problemToString());
 
@@ -122,6 +159,14 @@ public class CutSimple {
                 }
             }
             System.out.println("Waste = " + p.objective().getValue());
+        }
+    }
+
+    @Override
+    public void callback(glp_tree tree) {
+        int reason = GLPK.glp_ios_reason(tree);
+        if (reason == GLPK.GLP_IBINGO) {
+            GLPK.glp_ios_terminate(tree);
         }
     }
 }

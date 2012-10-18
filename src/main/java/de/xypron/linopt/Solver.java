@@ -14,28 +14,30 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package de.xypron.linopt;
 
 /**
  * Solver defines a unique interface for all linear programming packages.
+ *
  * @author Heinrich Schuchardt
  */
 public interface Solver {
 
     /**
-     * Set relative mip gap. If the mip gap is smaller than the value
-     * provided the solution process is stopped and the currently best solution
-     * is used. The value has to be set before the solve method is called.
-     * @param gap
-     * @return 
-     */
-    boolean setMipGap(double gap);
-    
-    /**
-     * Set time limit. If the solution process exceeds the the time limit,
+     * Set relative mip gap. If the mip gap is smaller than the value provided
      * the solution process is stopped and the currently best solution is used.
      * The value has to be set before the solve method is called.
+     *
+     * @param gap relative mip gap
+     * @return true if successful
+     */
+    boolean setMipGap(double gap);
+
+    /**
+     * Set time limit. If the solution process exceeds the the time limit, the
+     * solution process is stopped and the currently best solution is used. The
+     * value has to be set before the solve method is called.
+     *
      * @param duration duration in seconds
      * @return true if successful
      */
@@ -43,6 +45,7 @@ public interface Solver {
 
     /**
      * Solve problem.
+     *
      * @param p problem
      * @return true if successful
      */

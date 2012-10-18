@@ -32,7 +32,17 @@ import org.gnu.glpk.glp_prob;
  */
 public class SolverGlpk implements Solver {
 
+    /**
+     * Milliseconds per second.
+     */
+    private static final int MSPERS = 1000;
+    /**
+     * Relative MIP gap tolerance.
+     */
     private double mipGap = 0.;
+    /**
+     * Maximum runtime of solver in millisecons.
+     */
     private int timeLimit = Integer.MAX_VALUE;
 
     @Override
@@ -146,8 +156,7 @@ public class SolverGlpk implements Solver {
         // create matrix
         i = 1;
         for (Entry<Problem.Row, TreeMap<Problem.Column, Double>> e :
-                p.getMatrix().
-                entrySet()) {
+                p.getMatrix().entrySet()) {
             if (e.getKey() == obj) {
                 continue;
             }
@@ -158,8 +167,7 @@ public class SolverGlpk implements Solver {
         val = GLPK.new_doubleArray(i);
         i = 0;
         for (Entry<Problem.Row, TreeMap<Problem.Column, Double>> e :
-                p.getMatrix().
-                entrySet()) {
+                p.getMatrix().entrySet()) {
             Problem.Row r = e.getKey();
 
             if (r == obj) {
@@ -190,7 +198,8 @@ public class SolverGlpk implements Solver {
         status = GLPK.glp_intopt(lp, iocp);
         if (status == 0
                 || status == GLPK.GLP_EMIPGAP
-                || status == GLPK.GLP_ETMLIM) {
+                || status == GLPK.GLP_ETMLIM
+                || status == GLPK.GLP_ESTOP) {
             status = GLPK.glp_mip_status(lp);
             if (status == GLPK.GLP_OPT || status == GLPK.GLP_FEAS) {
                 ret = true;
@@ -218,7 +227,7 @@ public class SolverGlpk implements Solver {
     }
 
     @Override
-    public boolean setMipGap(double gap) {
+    public final boolean setMipGap(final double gap) {
         if (gap < 0) {
             return false;
         }
@@ -227,11 +236,11 @@ public class SolverGlpk implements Solver {
     }
 
     @Override
-    public boolean setTimeLimit(double duration) {
-        if (duration < 0 || duration > Integer.MAX_VALUE / 1000) {
+    public final boolean setTimeLimit(final double duration) {
+        if (duration < 0 || duration > Integer.MAX_VALUE / MSPERS) {
             return false;
         }
-        timeLimit = (int) Math.ceil(duration * 1000);
+        timeLimit = (int) Math.ceil(duration * MSPERS);
         return true;
     }
 }

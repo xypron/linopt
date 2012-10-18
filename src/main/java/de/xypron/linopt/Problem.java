@@ -47,8 +47,8 @@ import java.util.TreeSet;
  * indices by concatenation using parentheses and commas, e.g.
  * <pre>
  * name(index1,index2,index3)
- * </pre> Hence it is advisable not to use parentheses and commas in names
- * and indices to avoid duplicate keys.
+ * </pre> Hence it is advisable not to use parentheses and commas in names and
+ * indices to avoid duplicate keys.
  *
  * @author Heinrich Schuchardt
  */
@@ -295,7 +295,7 @@ public class Problem {
                 ret += row.constraintToString() + "\n";
             }
         }
-        
+
         ret += "\nend;\n";
 
         return ret;
@@ -340,6 +340,10 @@ public class Problem {
          */
         private double dual;
 
+        /**
+         * Creates a column.
+         * @param key identifier for column
+         */
         private Column(final String key) {
             this.key = key;
             initialize();
@@ -483,7 +487,7 @@ public class Problem {
          * @param type column type
          * @return column
          */
-        public Column type(ColumnType type) {
+        public Column type(final ColumnType type) {
             this.type = type;
             return this;
         }
@@ -537,7 +541,7 @@ public class Problem {
             }
 
             ret += ";";
-            
+
             return ret;
         }
 
@@ -558,6 +562,9 @@ public class Problem {
     public class Objective
             extends Row {
 
+        /**
+         * Optimization direction.
+         */
         private Direction direction;
 
         /**
@@ -620,11 +627,18 @@ public class Problem {
          */
         private double dual;
 
+        /**
+         * Creates row.
+         * @param key identifier of row
+         */
         private Row(final String key) {
             this.key = key;
             initialize();
         }
 
+        /**
+         * Initializes row.
+         */
         private void initialize() {
             if (rows.containsKey(key)) {
                 throw new RuntimeException("Row " + key + " already exists.");
@@ -783,7 +797,8 @@ public class Problem {
             if (this == objectiveFunction) {
                 if (objectiveFunction.direction.equals(Direction.MINIMIZE)) {
                     ret += "minimize ";
-                } else if (objectiveFunction.direction.equals(Direction.MAXIMIZE)) {
+                } else if (objectiveFunction.direction.
+                        equals(Direction.MAXIMIZE)) {
                     ret += "minimize ";
                 }
                 ret += key + " :";
@@ -810,7 +825,7 @@ public class Problem {
             if (upperBound != null) {
                 ret += " <= " + upperBound;
             }
-            
+
             ret += ";";
 
             return ret;
