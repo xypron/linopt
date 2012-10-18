@@ -13,6 +13,8 @@ About
  The Linear Optimization Wrapper for Java provides classes that wrap the
  solver and provide an intiutive interface.
 
+ This release is based on GLPK for Java ${glpkjavaversion}.
+
 * Maven
 
  For using this library in your Maven project enter the following repository
@@ -43,4 +45,11 @@ About
 mvn clean install -DargLine='-Djava.library.path=/usr/local/lib/jni:/usr/lib/jni'
 ---
 
+ The exec:java target may require to indicate the installation path
+ of the GLPK for Java shared library in MAVEN_OPTS, e.g.
+
+---
+export MAVEN_OPTS="-Djava.library.path=/usr/local/lib/jni:/usr/lib/jni"
+mvn exec:java
+---
 

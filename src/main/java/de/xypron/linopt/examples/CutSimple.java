@@ -98,7 +98,9 @@ public class CutSimple
                         + " [options]\n\n"
                         + "-f stop on first solution\n"
                         + "-t stop on time limit 1s\n"
-                        + "-g set MIP gap .3\n"
+                        + "-g set MIP gap .3\n\n"
+                        + "Example:"
+                        + "mvn exec:java -Dexec.args=-f"
                         );
                 return;
             }
