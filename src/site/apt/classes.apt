@@ -4,17 +4,12 @@
   Schuchardt
  <xypron.glpk@gmx.de>
  -----
- December 2011
+ October 2012
  -----
 
 Classes 
  
- Interface <<Solver>> defines a unique interface for all solvers. The only
- method is 
-
----
- public boolean solve(Problem p);
----
+ Interface <<Solver>> defines a unique interface for all solvers.
 
  <<SolverGlpk>> is an implementation of this interface to use the Gnu Linear
  Optimization Kit.

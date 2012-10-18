@@ -36,7 +36,7 @@ import org.gnu.glpk.glp_tree;
  * @author Heinrich Schuchardt
  */
 public class CutSimple
-   implements GlpkCallbackListener {
+        implements GlpkCallbackListener {
 
     /**
      * Column identifier for usage. u(i) : stock element i is used
@@ -76,12 +76,34 @@ public class CutSimple
      * @param args command line arguments
      */
     public static void main(final String[] args) {
-        new CutSimple().run();
+        new CutSimple().run(args);
     }
-    
-    private void run() {
-        GlpkCallback.addListener(this);
+
+    /**
+     * Run.
+     */
+    private void run(final String[] args) {
         Solver s = new SolverGlpk();
+        
+        for (String arg : args) {
+            if (arg.equals("-f")) {
+                GlpkCallback.addListener(this);
+            } else if (arg.equals("-t")) {
+                s.setTimeLimit(1.);
+            } else if (arg.equals("-g")) {
+                s.setMipGap(.3);
+            } else {
+                System.out.println("Usage: "
+                        + this.getClass().toString()
+                        + " [options]\n\n"
+                        + "-f stop on first solution\n"
+                        + "-t stop on time limit 1s\n"
+                        + "-g set MIP gap .3\n"
+                        );
+                return;
+            }
+        }
+        
         Problem p;
         // lengths of stock items
         long[] stock = {50, 50, 100, 100, 100, 200, 200};
@@ -161,7 +183,7 @@ public class CutSimple
             System.out.println("Waste = " + p.objective().getValue());
         }
     }
-
+    
     @Override
     public void callback(glp_tree tree) {
         int reason = GLPK.glp_ios_reason(tree);

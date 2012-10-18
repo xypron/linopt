@@ -1,0 +1,31 @@
+ -----
+ Change Log
+ -----
+  Schuchardt
+ <xypron.glpk@gmx.de>
+ -----
+ October 2012
+ -----
+
+Change Log 
+ 
+* Version 1.4, 18th October 2012
+
+ * Add new methods to Interface <<Solver>> to define MIP gap and time limit.
+
+ * Change <<SolverGlpk>> to support stopping by MIP gap, time limit,
+   glp_ios_terminate.   
+
+* Version 1.3, 14th June 2012
+
+* Version 1.2, 15th January 2012
+
+ * Add method to <<Problem>> to return problem as String.
+
+* Version 1.1, 22nd December 2011
+
+ * Add capability to <<SolverGlpk>> to retrieve row values.
+
+* Version 1.0, 24th September 2011
+
+ * Initial Release
