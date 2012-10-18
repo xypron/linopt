@@ -24,6 +24,24 @@ package de.xypron.linopt;
 public interface Solver {
 
     /**
+     * Set relative mip gap. If the mip gap is smaller than the value
+     * provided the solution process is stopped and the currently best solution
+     * is used. The value has to be set before the solve method is called.
+     * @param gap
+     * @return 
+     */
+    boolean setMipGap(double gap);
+    
+    /**
+     * Set time limit. If the solution process exceeds the the time limit,
+     * the solution process is stopped and the currently best solution is used.
+     * The value has to be set before the solve method is called.
+     * @param duration duration in seconds
+     * @return true if successful
+     */
+    boolean setTimeLimit(double duration);
+
+    /**
      * Solve problem.
      * @param p problem
      * @return true if successful

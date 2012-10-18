@@ -27,9 +27,13 @@ import org.gnu.glpk.glp_prob;
 
 /**
  * Wrapper for GLPK for Java.
+ *
  * @author Heinrich Schuchardt
  */
 public class SolverGlpk implements Solver {
+
+    private double mipGap = 0.;
+    private int timeLimit = Integer.MAX_VALUE;
 
     @Override
     public final boolean solve(final Problem p) {
@@ -43,12 +47,13 @@ public class SolverGlpk implements Solver {
 
     /**
      * Solve the linear problem.
+     *
      * @param p problem.
      * @return success = true
      */
     private boolean solveInternal(final Problem p) {
-        boolean ret = false;
-        int i, j;
+        boolean ret;
+        int i, j, status;
         glp_prob lp;
         glp_iocp iocp;
         SWIGTYPE_p_int col;
@@ -179,14 +184,21 @@ public class SolverGlpk implements Solver {
         //  Solve model
         iocp = new glp_iocp();
         GLPK.glp_init_iocp(iocp);
+        iocp.setMip_gap(mipGap);
+        iocp.setTm_lim(timeLimit);
         iocp.setPresolve(GLPKConstants.GLP_ON);
-        switch (GLPK.glp_intopt(lp, iocp)) {
-            case 0:
+        status = GLPK.glp_intopt(lp, iocp);
+        if (status == 0
+                || status == GLPK.GLP_EMIPGAP
+                || status == GLPK.GLP_ETMLIM) {
+            status = GLPK.glp_mip_status(lp);
+            if (status == GLPK.GLP_OPT || status == GLPK.GLP_FEAS) {
                 ret = true;
-                break;
-            default:
+            } else {
                 ret = false;
-                break;
+            }
+        } else {
+            ret = false;
         }
 
         obj.setValue(GLPK.glp_mip_obj_val(lp));
@@ -203,5 +215,23 @@ public class SolverGlpk implements Solver {
         GLPK.glp_delete_prob(lp);
 
         return ret;
+    }
+
+    @Override
+    public boolean setMipGap(double gap) {
+        if (gap < 0) {
+            return false;
+        }
+        mipGap = gap;
+        return true;
+    }
+
+    @Override
+    public boolean setTimeLimit(double duration) {
+        if (duration < 0 || duration > Integer.MAX_VALUE / 1000) {
+            return false;
+        }
+        timeLimit = (int) Math.ceil(duration * 1000);
+        return true;
     }
 }
