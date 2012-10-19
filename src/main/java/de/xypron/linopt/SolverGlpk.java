@@ -155,8 +155,8 @@ public class SolverGlpk implements Solver {
 
         // create matrix
         i = 1;
-        for (Entry<Problem.Row, TreeMap<Problem.Column, Double>> e :
-                p.getMatrix().entrySet()) {
+        for (Entry<Problem.Row, TreeMap<Problem.Column, Double>> e
+                : p.getMatrix().entrySet()) {
             if (e.getKey() == obj) {
                 continue;
             }
@@ -166,20 +166,20 @@ public class SolverGlpk implements Solver {
         row = GLPK.new_intArray(i);
         val = GLPK.new_doubleArray(i);
         i = 0;
-        for (Entry<Problem.Row, TreeMap<Problem.Column, Double>> e :
-                p.getMatrix().entrySet()) {
+        for (Entry<Problem.Row, TreeMap<Problem.Column, Double>> e
+                : p.getMatrix().entrySet()) {
             Problem.Row r = e.getKey();
 
             if (r == obj) {
-                for (Entry<Problem.Column, Double> c :
-                        e.getValue().entrySet()) {
+                for (Entry<Problem.Column, Double> c
+                        : e.getValue().entrySet()) {
                     GLPK.glp_set_obj_coef(lp, c.getKey().getColumnNumber(),
                             c.getValue());
                 }
             } else {
                 j = r.getRowNumber();
-                for (Entry<Problem.Column, Double> c :
-                        e.getValue().entrySet()) {
+                for (Entry<Problem.Column, Double> c
+                        : e.getValue().entrySet()) {
                     GLPK.intArray_setitem(col, ++i,
                             c.getKey().getColumnNumber());
                     GLPK.intArray_setitem(row, i, j);

@@ -81,10 +81,12 @@ public class CutSimple
 
     /**
      * Run.
+     *
+     * @param args command line arguments
      */
     private void run(final String[] args) {
         Solver s = new SolverGlpk();
-        
+
         for (String arg : args) {
             if (arg.equals("-f")) {
                 GlpkCallback.addListener(this);
@@ -100,12 +102,11 @@ public class CutSimple
                         + "-t stop on time limit 1s\n"
                         + "-g set MIP gap .3\n\n"
                         + "Example:"
-                        + "mvn exec:java -Dexec.args=-f"
-                        );
+                        + "mvn exec:java -Dexec.args=-f");
                 return;
             }
         }
-        
+
         Problem p;
         // lengths of stock items
         long[] stock = {50, 50, 100, 100, 100, 200, 200};
@@ -185,7 +186,7 @@ public class CutSimple
             System.out.println("Waste = " + p.objective().getValue());
         }
     }
-    
+
     @Override
     public void callback(glp_tree tree) {
         int reason = GLPK.glp_ios_reason(tree);
