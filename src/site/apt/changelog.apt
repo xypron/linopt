@@ -4,10 +4,14 @@
   Schuchardt
  <xypron.glpk@gmx.de>
  -----
- October 2012
+ June 2013
  -----
 
 Change Log 
+
+* Version 1.6, 7th June 2013
+
+ * Change dependency to GLPK for Java 1.0.28
 
 * Version 1.5, 2nd February 2013
 
