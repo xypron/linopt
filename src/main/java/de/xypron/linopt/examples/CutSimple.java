@@ -191,7 +191,7 @@ public class CutSimple
     public void callback(glp_tree tree) {
         int reason = GLPK.glp_ios_reason(tree);
         if (reason == GLPK.GLP_IBINGO) {
-            GLPK.glp_ios_terminate(tree);
+            System.out.println("Better integer solution found.");
         }
     }
 }
