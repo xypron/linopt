@@ -28,7 +28,7 @@
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <netbeans.hint.useExternalMaven>true</netbeans.hint.useExternalMaven>
-        <glpkjavaversion>1.0.24</glpkjavaversion>
+        <glpkjavaversion>1.0.28</glpkjavaversion>
     </properties>
     <licenses>
         <license>
@@ -80,7 +80,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.0</version>
+                <version>3.1</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -139,12 +139,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.2</version>
+                <version>3.3</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7</version>
             </plugin>
         </plugins>
     </build>
@@ -164,7 +164,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>2.10</version>
                 <!--
                 <configuration>
                     <configLocation>http://www.xypron.de/svn/checkstyle/xypron.xml</configLocation>
@@ -194,7 +194,7 @@
                 -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.7.1</version>
+                <version>3.0.1</version>
                 <configuration>
                     <targetJdk>1.6</targetJdk>
                 </configuration>
