@@ -22,12 +22,12 @@ package de.xypron.linopt;
  * @author Heinrich Schuchardt
  */
 public interface Solver {
-    
+
     /**
      * Enables or disables presolver.
      * The preosolver is enabled by default. For using callback routines
      * it may have to be disabled.
-     * @param enabled
+     * @param enabled The presolver will be enabled if set to true.
      * @return true if successful
      */
     boolean setPresolve(boolean enabled);

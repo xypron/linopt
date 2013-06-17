@@ -257,7 +257,7 @@ public class SolverGlpk implements Solver {
     }
 
     @Override
-    public boolean setPresolve(boolean enabled) {
+    public final boolean setPresolve(final boolean enabled) {
         if (enabled) {
             presolve = GLPKConstants.GLP_ON;
         } else {

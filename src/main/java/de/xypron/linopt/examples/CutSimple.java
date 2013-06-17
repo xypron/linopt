@@ -191,7 +191,7 @@ public class CutSimple
     }
 
     @Override
-    public void callback(glp_tree tree) {
+    public void callback(final glp_tree tree) {
         int reason = GLPK.glp_ios_reason(tree);
         if (reason == GLPK.GLP_IBINGO) {
             GLPK.glp_ios_terminate(tree);
