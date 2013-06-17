@@ -24,6 +24,7 @@ import org.gnu.glpk.SWIGTYPE_p_double;
 import org.gnu.glpk.SWIGTYPE_p_int;
 import org.gnu.glpk.glp_iocp;
 import org.gnu.glpk.glp_prob;
+import org.gnu.glpk.glp_smcp;
 
 /**
  * Wrapper for GLPK for Java.
@@ -40,6 +41,10 @@ public class SolverGlpk implements Solver {
      * Relative MIP gap tolerance.
      */
     private double mipGap = 0.;
+    /**
+     * Presolver is enabled.
+     */
+    private int presolve = GLPKConstants.GLP_ON;
     /**
      * Maximum runtime of solver in millisecons.
      */
@@ -66,6 +71,7 @@ public class SolverGlpk implements Solver {
         int i, j, status;
         glp_prob lp;
         glp_iocp iocp;
+        glp_smcp smcp;
         SWIGTYPE_p_int col;
         SWIGTYPE_p_int row;
         SWIGTYPE_p_double val;
@@ -194,7 +200,13 @@ public class SolverGlpk implements Solver {
         GLPK.glp_init_iocp(iocp);
         iocp.setMip_gap(mipGap);
         iocp.setTm_lim(timeLimit);
-        iocp.setPresolve(GLPKConstants.GLP_ON);
+        iocp.setPresolve(presolve);
+        if (presolve == GLPKConstants.GLP_OFF) {
+            smcp = new glp_smcp();
+            smcp.setPresolve(presolve);
+            GLPK.glp_init_smcp(smcp);
+            GLPK.glp_simplex(lp, smcp);
+        }
         status = GLPK.glp_intopt(lp, iocp);
         if (status == 0
                 || status == GLPK.GLP_EMIPGAP
@@ -241,6 +253,16 @@ public class SolverGlpk implements Solver {
             return false;
         }
         timeLimit = (int) Math.ceil(duration * MSPERS);
+        return true;
+    }
+
+    @Override
+    public boolean setPresolve(boolean enabled) {
+        if (enabled) {
+            presolve = GLPKConstants.GLP_ON;
+        } else {
+            presolve = GLPKConstants.GLP_OFF;
+        }
         return true;
     }
 }

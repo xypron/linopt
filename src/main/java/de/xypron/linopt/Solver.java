@@ -22,6 +22,15 @@ package de.xypron.linopt;
  * @author Heinrich Schuchardt
  */
 public interface Solver {
+    
+    /**
+     * Enables or disables presolver.
+     * The preosolver is enabled by default. For using callback routines
+     * it may have to be disabled.
+     * @param enabled
+     * @return true if successful
+     */
+    boolean setPresolve(boolean enabled);
 
     /**
      * Set relative mip gap. If the mip gap is smaller than the value provided

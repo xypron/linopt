@@ -94,11 +94,14 @@ public class CutSimple
                 s.setTimeLimit(1.);
             } else if (arg.equals("-g")) {
                 s.setMipGap(.3);
+            } else if (arg.equals("-p")) {
+                s.setPresolve(false);
             } else {
                 System.out.println("Usage: "
                         + this.getClass().toString()
                         + " [options]\n\n"
                         + "-f stop on first solution\n"
+                        + "-p disable presolve\n"
                         + "-t stop on time limit 1s\n"
                         + "-g set MIP gap .3\n\n"
                         + "Example:"
@@ -191,7 +194,7 @@ public class CutSimple
     public void callback(glp_tree tree) {
         int reason = GLPK.glp_ios_reason(tree);
         if (reason == GLPK.GLP_IBINGO) {
-            System.out.println("Better integer solution found.");
+            GLPK.glp_ios_terminate(tree);
         }
     }
 }
