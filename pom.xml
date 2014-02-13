@@ -28,7 +28,7 @@
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <netbeans.hint.useExternalMaven>true</netbeans.hint.useExternalMaven>
-        <glpkjavaversion>1.0.29</glpkjavaversion>
+        <glpkjavaversion>1.0.32</glpkjavaversion>
     </properties>
     <licenses>
         <license>
