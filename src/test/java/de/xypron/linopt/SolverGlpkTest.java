@@ -47,7 +47,7 @@ public class SolverGlpkTest extends TestCase implements GlpkTerminalListener {
      */
     public void testSolve() {
         Problem p = createTestProblem();
-        System.out.println("testSolve");
+        System.out.println("testSolve - 1");
         double result;
         double expResult;
 
@@ -61,11 +61,33 @@ public class SolverGlpkTest extends TestCase implements GlpkTerminalListener {
         // block output
         GlpkTerminal.addListener(this);
         // solve
-        s.solve(p);
+        assertTrue("no solution - 1", s.solve(p));
         GlpkTerminal.removeListener(this);
 
         result = p.objective().getValue();
-        assertEquals("solve", expResult, result);
+        assertEquals("solution value - 1", expResult, result);
+
+        // ------------
+        
+        p = createTestProblem2();
+        System.out.println("testSolve - 2");
+
+        s = new SolverGlpk();
+
+        expResult = p.objective().getValue();
+        p.objective().setValue(0.);
+        result = p.objective().getValue();
+        assertFalse("objective set value", result == expResult);
+
+        // block output
+        GlpkTerminal.addListener(this);
+        // solve
+        assertTrue("no solution - 2", s.solve(p));
+        GlpkTerminal.removeListener(this);
+
+        result = p.objective().getValue();
+        assertEquals("solution value - 2", expResult, result);
+    
     }
 
     @Override
@@ -136,4 +158,28 @@ public class SolverGlpkTest extends TestCase implements GlpkTerminalListener {
         p.objective().setValue(32);
         return p;
     }
+
+    public Problem createTestProblem2() {
+        final String COLUMN = "C";
+        final String OBJECTIVE = "obj";
+        final String PROBLEM = "Trivial";
+        final String ROW = "R";
+
+        Problem p;
+
+        p = new Problem().setName(PROBLEM);
+
+        // define column
+        p.column(COLUMN).type(Problem.ColumnType.FLOAT);
+        // define objective
+        p.objective(OBJECTIVE, Problem.Direction.MINIMIZE)
+                .add(1., COLUMN);
+        // define rows
+        p.row(ROW).bounds(2., 3.).add(1., COLUMN);
+
+        // expected result
+        p.objective().setValue(2.);
+        return p;
+    }
+
 }

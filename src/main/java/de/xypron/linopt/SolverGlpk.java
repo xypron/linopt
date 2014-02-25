@@ -115,6 +115,9 @@ public class SolverGlpk implements Solver {
                 } else {
                     GLPK.glp_set_col_bnds(lp, i, GLPKConstants.GLP_DB, lb, ub);
                 }
+            } else if (c.getType() != Problem.ColumnType.BINARY) {
+                        GLPK.glp_set_col_bnds(lp, i,
+                                GLPKConstants.GLP_FR, 0, 0);
             }
         }
 
