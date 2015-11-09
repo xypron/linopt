@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.xypron.linopt</groupId>
     <artifactId>linopt</artifactId>
-    <version>1.14</version>
+    <version>1.15</version>
     <name>Linear Optimization Wrapper for Java</name>
     <description>
         Wrapper for linear optimization solver
@@ -28,7 +28,7 @@
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <netbeans.hint.useExternalMaven>true</netbeans.hint.useExternalMaven>
-        <glpkjavaversion>1.2.0</glpkjavaversion>
+        <glpkjavaversion>1.3.0</glpkjavaversion>
     </properties>
     <licenses>
         <license>
