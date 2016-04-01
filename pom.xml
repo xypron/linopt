@@ -1,9 +1,8 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.xypron.linopt</groupId>
     <artifactId>linopt</artifactId>
-    <version>1.16</version>
+    <version>1.17</version>
     <name>Linear Optimization Wrapper for Java</name>
     <description>
         Wrapper for linear optimization solver
@@ -28,7 +27,7 @@
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <netbeans.hint.useExternalMaven>true</netbeans.hint.useExternalMaven>
-        <glpkjavaversion>1.4.0</glpkjavaversion>
+        <glpkjavaversion>1.7.0</glpkjavaversion>
     </properties>
     <licenses>
         <license>
